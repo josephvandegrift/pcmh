@@ -19,4 +19,6 @@ Suggests:
     testthat
 VignetteBuilder: knitr
 Imports: 
-    fs
+    fs,
+    furrr,
+    pdftools
