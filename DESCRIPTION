@@ -1,0 +1,19 @@
+Package: pcmh.qa
+Title: Automate PCMH QA Process
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Joseph",
+           family = "Van de Grift",
+           role = c("aut", "cre"),
+           email = "Joseph.VandeGrift@gdit.com",
+           comment = c(ORCID = "0000-0002-0868-3657"))
+Description: What the package does (one paragraph).
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
