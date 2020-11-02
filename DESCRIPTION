@@ -21,4 +21,6 @@ VignetteBuilder: knitr
 Imports: 
     fs,
     furrr,
-    pdftools
+    pdftools,
+    tibble,
+    dplyr

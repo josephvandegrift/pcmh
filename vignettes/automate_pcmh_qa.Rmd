@@ -17,3 +17,10 @@ knitr::opts_chunk$set(
 ```{r setup}
 library(pcmh.qa)
 ```
+
+We start by reading in the \code{.pdf} PCMH reports.
+
+```{r}
+
+```
+

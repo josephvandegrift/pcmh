@@ -6,7 +6,7 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of pcmh.qa is to …
+The goal of pcmh.qa is to automate the PCMH Report QA.
 
 ## Installation
 
