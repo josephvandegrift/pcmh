@@ -2,7 +2,7 @@
 % Please edit documentation in R/read_pdf_data.R
 \name{read_pdf_data}
 \alias{read_pdf_data}
-\title{Test Function}
+\title{Read pdf_data}
 \usage{
 read_pdf_data(path)
 }

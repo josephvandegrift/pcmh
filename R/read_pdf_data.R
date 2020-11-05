@@ -1,4 +1,4 @@
-#' Test Function
+#' Read pdf_data
 #'
 #' Uses \code{\link[fs]{dir_ls}} to create a \code{list} of the \code{.pdf} PCMH
 #'   Report filepaths. Then uses \code{\link[furrr]{future_map}} to map

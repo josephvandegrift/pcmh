@@ -4,10 +4,10 @@
 \alias{.filter_pdf_data}
 \title{Filter pdf_data}
 \usage{
-.filter_pdf_data(data_frame, x_min, x_max, y_min, y_max)
+.filter_pdf_data(.data_frame, x_min, x_max, y_min, y_max)
 }
 \arguments{
-\item{data_frame}{\code{Dataframe} read in with \code{\link[pdftools]{pdf_data}}
+\item{.data_frame}{\code{Dataframe} read in with \code{\link[pdftools]{pdf_data}}
 that is to be filtered.}
 
 \item{x_min}{Lower bound of \code{x} range.}

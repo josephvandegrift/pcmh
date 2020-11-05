@@ -1,4 +1,4 @@
 library(testthat)
-library(pcmh.qa)
+library(pcmh)
 
-test_check("pcmh.qa")
+test_check("pcmh")

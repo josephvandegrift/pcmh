@@ -4,7 +4,7 @@
 #'   and is used to extract the data from a \code{.pdf} file based on a certain
 #'   \code{x} and \code{y} range input.
 #'
-#' @param data_frame \code{Dataframe} read in with \code{\link[pdftools]{pdf_data}}
+#' @param .data_frame \code{Dataframe} read in with \code{\link[pdftools]{pdf_data}}
 #'   that is to be filtered.
 #' @param x_min Lower bound of \code{x} range.
 #' @param x_max Upper bound of \code{x} range.
@@ -21,10 +21,10 @@
 #' \dontrun{
 #' .filter_pdf_data(df, 0, 50, 0, 150)
 #' }
-.filter_pdf_data <- function(data_frame, x_min, x_max, y_min, y_max) {
+.filter_pdf_data <- function(.data_frame, x_min, x_max, y_min, y_max) {
   out <-
-    dplyr::filter(.data = data_frame,
-                  data_frame$x %in% (x_min:x_max) &
-                    data_frame$y %in% (y_min:y_max))
+    dplyr::filter(.data = .data_frame,
+                  .data_frame$x %in% (x_min:x_max) &
+                    .data_frame$y %in% (y_min:y_max))
   return(tibble::as_tibble(out))
 }

@@ -1,12 +1,12 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# pcmh.qa
+# pcmh
 
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of pcmh.qa is to automate the PCMH Report QA.
+The goal of pcmh is to automate the PCMH Report QA.
 
 ## Installation
 
@@ -14,7 +14,7 @@ You can install the released version of pcmh.qa from
 [CRAN](https://CRAN.R-project.org) with:
 
 ``` r
-install.packages("pcmh.qa")
+install.packages("pcmh")
 ```
 
 ## Example
@@ -22,7 +22,7 @@ install.packages("pcmh.qa")
 This is a basic example which shows you how to solve a common problem:
 
 ``` r
-library(pcmh.qa)
+library(pcmh)
 ## basic example code
 ```
 
