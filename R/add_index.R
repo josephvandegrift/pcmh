@@ -11,12 +11,13 @@
 #' @export
 #'
 #' @importFrom furrr future_map
+#' @importFrom tibble as_tibble
 #'
 #' @examples
 #' \dontrun{
 #' .add_index(list)
 #' }
-.add_index <- function(.pdf_data) {
-  out <- furrr::future_map(.x = .pdf_data, cbind(.x, 1:nrow(.x)))
-  return(out)
+.add_index <- function(.data_frame) {
+  out <- cbind(.data_frame, index = 1:nrow(.data_frame))
+  return(tibble::as_tibble(out))
 }

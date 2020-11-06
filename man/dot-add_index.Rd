@@ -4,7 +4,7 @@
 \alias{.add_index}
 \title{Add Index}
 \usage{
-.add_index(.pdf_data)
+.add_index(.data_frame)
 }
 \arguments{
 \item{.pdf_data}{A \code{list} of \code{dataframes} read in with
