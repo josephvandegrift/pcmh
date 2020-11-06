@@ -12,6 +12,9 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
+#' clean_pdf_data(.list)
+#' }
 clean_pdf_data = function(.list) {
 
 }

@@ -19,3 +19,8 @@ This function is meant to be used in conjunction with \code{\link[pcmh.qa]{read_
 to combine each page of the PCMH reports into a single \code{tibble} and
 to add a \code{page} and \code{index} variable to the \code{tibble}.
 }
+\examples{
+\dontrun{
+clean_pdf_data(.list)
+}
+}
