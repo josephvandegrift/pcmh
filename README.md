@@ -10,7 +10,7 @@ The goal of pcmh is to automate the PCMH Report QA.
 
 ## Installation
 
-You can install the released version of pcmh.qa from
+You can install the released version of pcmh from
 [CRAN](https://CRAN.R-project.org) with:
 
 ``` r
