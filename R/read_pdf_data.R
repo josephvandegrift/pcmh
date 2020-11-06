@@ -1,8 +1,9 @@
 #' Read pdf_data
 #'
 #' Uses \code{\link[fs]{dir_ls}} to create a \code{list} of the \code{.pdf} PCMH
-#'   Report filepaths. Then uses \code{\link[furrr]{future_map}} to map
-#'   \code{\link[pdftools]{pdf_data}} to read in each PCMH Report.
+#'   Report filepaths.
+#'   Then uses \code{\link[furrr]{future_map}} to map \code{\link[pdftools]{pdf_data}}
+#'   to read in each PCMH Report.
 #'
 #' @param path Filepath to a directory of  \code{.pdf} PCMH Reports.
 #'

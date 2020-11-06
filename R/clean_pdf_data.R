@@ -1,8 +1,8 @@
 #' Clean pdf_data
 #'
 #' This function takes a \code{list} of \code{dataframes} and adds an \code{index}
-#'   and \code{page} column then reduces them into a single \code{tibble}. This
-#'   function is a wrapper around \code{\link[pcmh]{.add_page_numbers}} and
+#'   and \code{page} column then reduces them into a single \code{tibble}.
+#'   This function is a wrapper around \code{\link[pcmh]{.add_page_numbers}} and
 #'   \code{\link[pcmh]{.add_index}} and is meant to be used after you have read
 #'   in the PCMH reports using \code{\link[pcmh]{read_pdf_data}}.
 #'
