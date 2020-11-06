@@ -7,17 +7,19 @@
 clean_pdf_data(.list)
 }
 \arguments{
-\item{.list}{A \code{list} that refers to a single PCMH report where each
-\code{element} is a single page of the report.}
+\item{.list}{A \code{list} of \code{dataframes} read in with
+\code{\link[pcmh]{read_pdf_data}}.}
 }
 \value{
-Returns \code{.list} as a single \code{tibble} with an added
-\code{page} and \code{index} variable.
+Returns \code{.list} as a single \code{tibble} with a \code{page} and
+\code{index} column added to it.
 }
 \description{
-This function is meant to be used in conjunction with \code{\link[pcmh.qa]{read_pdf_data}}
-to combine each page of the PCMH reports into a single \code{tibble} and
-to add a \code{page} and \code{index} variable to the \code{tibble}.
+This function takes a \code{list} of \code{dataframes} and adds an \code{index}
+and \code{page} column then reduces them into a single \code{tibble}. This
+function is a wrapper around \code{\link[pcmh]{.add_page_numbers}} and
+\code{\link[pcmh]{.add_index}} and is meant to be used after you have read
+in the PCMH reports using \code{\link[pcmh]{read_pdf_data}}.
 }
 \examples{
 \dontrun{
