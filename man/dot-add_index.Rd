@@ -7,19 +7,18 @@
 .add_index(.data_frame)
 }
 \arguments{
-\item{.pdf_data}{A \code{list} of \code{dataframes} read in with
-\code{\link[pdftools]{pdf_data}}.}
+\item{.data_frame}{A \code{dataframe}.}
 }
 \value{
-Returns \code{.pdf_data} with an \code{index} column added to each
-element.
+Returns \code{.data_frame} as a \code{tibble} with an \code{index}
+column added.
 }
 \description{
-Adds an \code{index} column to each of the elements of a \code{lsit}. Meant to
-be used after you read in \code{.pdf} PCMH reports.
+Adds an \code{index} column to a \code{dataframe}. Helper function to be used
+to clean the \code{.pdf} PCMH reports data.
 }
 \examples{
 \dontrun{
-.add_index(list)
+.add_index(dataframe)
 }
 }
