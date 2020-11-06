@@ -9,7 +9,6 @@
 #'   column added.
 #' @export
 #'
-#' @importFrom furrr future_map
 #' @importFrom tibble as_tibble
 #'
 #' @examples

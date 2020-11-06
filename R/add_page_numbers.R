@@ -1,22 +1,21 @@
-#' Add Page Numbers
+#' Add Page Number
 #'
-#' Adds a \code{page} column to each of the elements of a \code{lsit}. Meant to
-#'   be used after you read in \code{.pdf} PCMH reports.
+#' Adds a \code{page} column to a \code{dataframe}. Helper function to be used
+#'   to clean the \code{.pdf} PCMH reports data.
 #'
-#' @param .pdf_data A \code{list} of \code{dataframes} read in with
-#'   \code{\link[pdftools]{pdf_data}}.
+#' @param .data_frame A \code{dataframe}.
 #'
-#' @return Returns \code{.pdf_data} with a \code{page} column added to each
-#'   element.
+#' @return Returns \code{.data_frame} as a \code{tibble} with a \code{page}
+#'   column added.
 #' @export
 #'
-#' @importFrom furrr future_map2
+#' @importFrom tibble as_tibble
 #'
 #' @examples
 #' \dontrun{
-#' .add_page_numbers(list)
+#' .add_page_numbers(dataframe)
 #' }
-.add_page_numbers <- function(.pdf_data) {
-  out <- furrr::future_map2(.pdf_data, 1:length(.pdf_data), cbind(.x, .y))
-  return(out)
+.add_page_numbers <- function(.data_frame, .page) {
+  out <- cbind(.data_frame, page = {{ .page }})
+  return(tibble::as_tibble(out))
 }

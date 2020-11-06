@@ -2,24 +2,23 @@
 % Please edit documentation in R/add_page_numbers.R
 \name{.add_page_numbers}
 \alias{.add_page_numbers}
-\title{Add Page Numbers}
+\title{Add Page Number}
 \usage{
-.add_page_numbers(.pdf_data)
+.add_page_numbers(.data_frame, .page)
 }
 \arguments{
-\item{.pdf_data}{A \code{list} of \code{dataframes} read in with
-\code{\link[pdftools]{pdf_data}}.}
+\item{.data_frame}{A \code{dataframe}.}
 }
 \value{
-Returns \code{.pdf_data} with a \code{page} column added to each
-element.
+Returns \code{.data_frame} as a \code{tibble} with a \code{page}
+column added.
 }
 \description{
-Adds a \code{page} column to each of the elements of a \code{lsit}. Meant to
-be used after you read in \code{.pdf} PCMH reports.
+Adds a \code{page} column to a \code{dataframe}. Helper function to be used
+to clean the \code{.pdf} PCMH reports data.
 }
 \examples{
 \dontrun{
-.add_page_numbers(list)
+.add_page_numbers(dataframe)
 }
 }
