@@ -8,6 +8,8 @@
 }
 \arguments{
 \item{.data_frame}{A \code{dataframe}.}
+
+\item{.page}{An \code{integer}.}
 }
 \value{
 Returns \code{.data_frame} as a \code{tibble} with a \code{page}

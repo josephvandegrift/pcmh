@@ -4,6 +4,7 @@
 #'   to clean the \code{.pdf} PCMH reports data.
 #'
 #' @param .data_frame A \code{dataframe}.
+#' @param .page An \code{integer}.
 #'
 #' @return Returns \code{.data_frame} as a \code{tibble} with a \code{page}
 #'   column added.
@@ -16,6 +17,6 @@
 #' .add_page_numbers(dataframe)
 #' }
 .add_page_numbers <- function(.data_frame, .page) {
-  out <- cbind(.data_frame, page = {{ .page }})
+  out <- cbind(.data_frame, page = .page)
   return(tibble::as_tibble(out))
 }
