@@ -4,10 +4,12 @@
 \alias{read_pdf_data}
 \title{Read pdf_data}
 \usage{
-read_pdf_data(path)
+read_pdf_data(path, ...)
 }
 \arguments{
 \item{path}{Filepath to a directory of  \code{.pdf} PCMH Reports.}
+
+\item{...}{Extra parameters to be passed to \code{\link[fs]{dir_ls}}.}
 }
 \value{
 Returns a \code{list} of \code{lists}. Each \code{element} of the

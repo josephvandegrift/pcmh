@@ -6,6 +6,7 @@
 #'   to read in each PCMH Report.
 #'
 #' @param path Filepath to a directory of  \code{.pdf} PCMH Reports.
+#' @param ... Extra parameters to be passed to \code{\link[fs]{dir_ls}}.
 #'
 #' @return Returns a \code{list} of \code{lists}. Each \code{element} of the
 #'   \code{list} refers to a PCMH Report and is a \code{list} of \code{dataframes},
@@ -19,8 +20,8 @@
 #' \dontrun{
 #' read_pdf_data(hi)
 #' }
-read_pdf_data <- function(path) {
-  files <- fs::dir_ls(path)
+read_pdf_data <- function(path, ...) {
+  files <- fs::dir_ls(path, ...)
   out <- furrr::future_map(files, pdftools::pdf_data)
   return(out)
 }
