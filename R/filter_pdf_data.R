@@ -23,7 +23,7 @@
 #' }
 .filter_pdf_data <- function(.data_frame, x_min, x_max, y_min, y_max) {
   out <- dplyr::filter(.data_frame,
-                       .data_frame$x %in% (x_min:x_max) &
-                       .data_frame$y %in% (y_min:y_max))
+                       .data_frame["x"] %in% (x_min:x_max) &
+                       .data_frame["y"] %in% (y_min:y_max))
   return(tibble::as_tibble(out))
 }

@@ -9,10 +9,16 @@
 #'   Attribution Detail page of a PCMH report.
 #' @export
 #'
+#' @importFrom tibble as_tibble
+#' @importFrom dplyr filter
+#'
 #' @examples
 #' \dontrun{
 #' .get_attribution_detial(.data_frame)
 #' }
 .get_attribution_detail <- function(.data_frame) {
-
+  out <- tibble::tibble()
+  out <- dplyr::filter(.data_frame, .data_frame["page"] == 4)
+  out <- pcmh::.filter_pdf_data(out, 425, 430, 120, 125)
+  return(tibble::as_tibble(out))
 }
