@@ -7,6 +7,7 @@
 #'
 #' @param .directory A path to a directory containing the \code{.pdf} PCMH
 #'   reports.
+#' @param ... Extra parameters to be passed to \code{\link[pcmh]{read_pdf_data}}.
 #'
 #' @return Returns a \code{list} of \code{dataframes}. One for each \code{.pdf}
 #'   PCMH report in the directory.
@@ -18,8 +19,8 @@
 #' \dontrun{
 #' import_pdf_data(~Documents)
 #' }
-import_pdf_data <- function(.directory) {
-  out <- pcmh::read_pdf_data(.directory)
+import_pdf_data <- function(.directory, ...) {
+  out <- pcmh::read_pdf_data(.directory, ...)
   out <- furrr::future_map(out, pcmh::clean_pdf_data)
   return(out)
 }

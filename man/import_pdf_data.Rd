@@ -4,11 +4,13 @@
 \alias{import_pdf_data}
 \title{Import pdf_data}
 \usage{
-import_pdf_data(.directory)
+import_pdf_data(.directory, ...)
 }
 \arguments{
 \item{.directory}{A path to a directory containing the \code{.pdf} PCMH
 reports.}
+
+\item{...}{Extra parameters to be passed to \code{\link[pcmh]{read_pdf_data}}.}
 }
 \value{
 Returns a \code{list} of \code{dataframes}. One for each \code{.pdf}
