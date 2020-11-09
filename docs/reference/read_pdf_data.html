@@ -130,7 +130,7 @@ Then uses <code><a href='https://rdrr.io/pkg/furrr/man/future_map.html'>future_m
 to read in each PCMH Report.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>read_pdf_data</span><span class='op'>(</span><span class='va'>path</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>read_pdf_data</span><span class='op'>(</span><span class='va'>path</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -138,6 +138,10 @@ to read in each PCMH Report.</p>
     <tr>
       <th>path</th>
       <td><p>Filepath to a directory of  <code>.pdf</code> PCMH Reports.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Extra parameters to be passed to <code><a href='http://fs.r-lib.org/reference/dir_ls.html'>dir_ls</a></code>.</p></td>
     </tr>
     </table>
 

@@ -12,6 +12,8 @@
 #'   PCMH report in the directory.
 #' @export
 #'
+#' @importFrom furrr future_map
+#'
 #' @examples
 #' \dontrun{
 #' import_pdf_data(~Documents)
