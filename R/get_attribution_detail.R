@@ -18,7 +18,6 @@
 #' }
 .get_attribution_detail <- function(.data_frame) {
   out <- tibble::tibble()
-  out <- dplyr::filter(.data_frame, .data_frame["page"] == 4)
-  out <- pcmh::.filter_pdf_data(out, 425, 430, 120, 125)
+  out <- pcmh::.filter_pdf_data(.data_frame, 4, 425, 430, 120, 125)
   return(tibble::as_tibble(out))
 }
