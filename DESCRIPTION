@@ -23,4 +23,5 @@ Imports:
     furrr,
     pdftools,
     tibble,
-    dplyr
+    dplyr,
+    vroom
