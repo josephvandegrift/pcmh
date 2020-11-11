@@ -21,7 +21,8 @@ that is to be filtered.}
 \item{y_max}{Upper bound of \code{y} range.}
 }
 \value{
-Returns a subset of the input \code{dataframe} as a \code{tibble.}
+If text exists in the \code{x} and \code{y} range, returns the text
+as a \code{tibble}, else returns \code{-99} as a \code{tibble}.
 }
 \description{
 This is a helper function to be used in conjunction with \code{\link[pdftools]{pdf_data}}

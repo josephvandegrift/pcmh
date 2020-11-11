@@ -12,10 +12,13 @@
 #' @param y_min Lower bound of \code{y} range.
 #' @param y_max Upper bound of \code{y} range.
 #'
-#' @return Returns a subset of the input \code{dataframe} as a \code{tibble.}
+#' @return If text exists in the \code{x} and \code{y} range, returns the text
+#'   as a \code{tibble}, else returns \code{-99} as a \code{tibble}.
 #' @export
 #'
 #' @importFrom dplyr filter
+#' @importFrom dplyr if_else
+#' @importFrom tibble tibble
 #' @importFrom tibble as_tibble
 #'
 #' @examples
@@ -27,5 +30,8 @@
                        .data_frame["page"] == .page &
                        .data_frame["x"] %in% (x_min:x_max) &
                        .data_frame["y"] %in% (y_min:y_max))
+  out <- tibble::tibble(text = ifelse(length(out[["text"]]) == 0,
+                                              -99,
+                                              out[["text"]]))
   return(tibble::as_tibble(out))
 }
