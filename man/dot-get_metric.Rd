@@ -4,9 +4,11 @@
 \alias{.get_metric}
 \title{Get Metric}
 \usage{
-.get_metric(.metric)
+.get_metric(.data_frame, .metric)
 }
 \arguments{
+\item{.data_frame}{A \code{dataframe} you wish to extract data from.}
+
 \item{.metric}{Input for which metric to extract.}
 }
 \value{

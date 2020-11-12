@@ -12,9 +12,14 @@
 \item{...}{Extra parameters to be passed to \code{\link[vroom]{vroom}}.}
 }
 \value{
-
+Returns a \code{tibble} of the \code{.csv} oracle data
 }
 \description{
-This function reads in the \code{.csv} oracle data to be checked against the
-\code{.pdf} PCMH report data.
+This function uses \code{\link[vroom]{vroom}} to read in the \code{.csv}
+oracle data to be checked against the \code{.pdf} PCMH report data.
+}
+\examples{
+\dontrun{
+.read_oracle_data(.path)
+}
 }
