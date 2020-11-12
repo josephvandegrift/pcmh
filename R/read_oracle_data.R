@@ -1,4 +1,4 @@
-#' Read Oracle Data
+#' Read Metrics Data
 #'
 #' This function uses \code{\link[vroom]{vroom}} to read in the \code{.csv}
 #'   oracle data to be checked against the \code{.pdf} PCMH report data.
@@ -16,7 +16,7 @@
 #' \dontrun{
 #' .read_oracle_data(.path)
 #' }
-.read_oracle_data <- function(.path, ...) {
+.read_metrics_data <- function(.path, ...) {
   out <- vroom::vroom(.path, ...)
   return(tibble::as_tibble(out))
 }
