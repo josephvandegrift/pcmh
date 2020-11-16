@@ -24,8 +24,7 @@
     y_min = 0,
     y_max = 10
   )
-  out <- out["text"]
-  out <- stringr::str_subset(out, "\\d{9}")
-  out <- cbind(as.numeric(out), .data_frame)
+  out <- stringr::str_subset(out[["text"]], "\\d{9}")
+  out <- cbind(prvdr_num = as.numeric(out), .data_frame)
   return(tibble::as_tibble(out))
 }
