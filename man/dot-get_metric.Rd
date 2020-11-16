@@ -4,15 +4,15 @@
 \alias{.get_metric}
 \title{Get Metric}
 \usage{
-.get_metric(.data_frame, .metric)
+.get_metric(.data_frame, ...)
 }
 \arguments{
 \item{.data_frame}{A \code{dataframe} you wish to extract data from.}
 
-\item{.metric}{Input for which metric to extract.}
+\item{...}{Extra parameters to be passed to \code{\link[pcmh]{.filter_pdf_data}}.}
 }
 \value{
-Returns a \code{tibble} of the specified \code{.metric}.
+Returns a \code{tibble} of the a specific metric.
 }
 \description{
 This function is a wrapper around \code{\link[pcmh]{.filter_pdf_data}} and

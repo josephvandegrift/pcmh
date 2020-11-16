@@ -4,26 +4,26 @@
 #'   extracts the specific \code{.metric} input.
 #'
 #' @param .data_frame A \code{dataframe} you wish to extract data from.
-#' @param .metric Input for which metric to extract.
+#' @param ... Extra parameters to be passed to \code{\link[pcmh]{.filter_pdf_data}}.
 #'
-#' @return Returns a \code{tibble} of the specified \code{.metric}.
+#' @return Returns a \code{tibble} of the a specific metric.
 #' @export
 #'
+#' @importFrom stringr str_detect
 #' @importFrom tibble as_tibble
+#' @importFrom tibble tibble
+#' @importFrom dplyr filter
+#' @importFrom readr parse_number
 #'
 #' @examples
 #' \dontrun{
 #' .get_metric(.metric)
 #' }
-.get_metric <- function(.data_frame, .metric) {
-  .params <- list(
-    .data_frame = .data_frame,
-    .page = 4,
-    x_min = 1,
-    x_max = 10,
-    y_min = 1,
-    y_max = 10
-  )
-  out <- do.call(pcmh::.filter_pdf_data, .params)
+.get_metric <- function(.data_frame, ...) {
+  out <- pcmh::.filter_pdf_data(.data_frame, ...)
+  out <- dplyr::filter(out, stringr::str_detect(out$text, "\\d+"))
+  out <- tibble(dnmtr_num = as.numeric(out[[3, 1]]),
+                nmrtr_num = as.numeric(out[[1, 1]]),
+                rate = readr::parse_number(out[[2, 1]]))
   return(tibble::as_tibble(out))
 }

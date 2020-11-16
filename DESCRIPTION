@@ -26,4 +26,5 @@ Imports:
     dplyr,
     vroom,
     janitor,
-    stringr
+    stringr,
+    readr
