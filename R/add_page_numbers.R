@@ -17,6 +17,6 @@
 #' .add_page_numbers(dataframe)
 #' }
 .add_page_numbers <- function(.data_frame, .page) {
-  out <- cbind(.data_frame, page = .page)
+  out <- cbind(page = .page, .data_frame)
   return(tibble::as_tibble(out))
 }

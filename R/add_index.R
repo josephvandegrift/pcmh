@@ -16,6 +16,6 @@
 #' .add_index(dataframe)
 #' }
 .add_index <- function(.data_frame) {
-  out <- cbind(.data_frame, index = 1:nrow(.data_frame))
+  out <- cbind(index = 1:nrow(.data_frame), .data_frame)
   return(tibble::as_tibble(out))
 }
