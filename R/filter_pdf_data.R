@@ -27,11 +27,12 @@
 #' }
 .filter_pdf_data <- function(.data_frame, .page, x_min, x_max, y_min, y_max) {
   out <- dplyr::filter(.data_frame,
-                       .data_frame["page"] == .page &
-                       .data_frame["x"] %in% (x_min:x_max) &
-                       .data_frame["y"] %in% (y_min:y_max))
-  out <- tibble::tibble(text = ifelse(length(out[["text"]]) == 0,
-                                              -99,
-                                              out[["text"]]))
+                       .data_frame$page == .page &
+                       .data_frame$x %in% (x_min:x_max) &
+                       .data_frame$y %in% (y_min:y_max))
+  out <- ifelse(length(out$text) == 0,
+                -99,
+                out["text"])
+  out <- tibble::tibble(text = out[[1]])
   return(tibble::as_tibble(out))
 }
