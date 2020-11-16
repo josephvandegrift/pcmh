@@ -10,6 +10,7 @@
 #' @export
 #'
 #' @importFrom tibble as_tibble
+#' @importFrom stringr str_subset
 #'
 #' @examples
 #' \dontrun{

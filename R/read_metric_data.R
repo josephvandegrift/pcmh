@@ -16,7 +16,7 @@
 #' \dontrun{
 #' .read_oracle_data(.path)
 #' }
-.read_metrics_data <- function(.path, ...) {
+.read_metric_data <- function(.path, ...) {
   out <- vroom::vroom(.path, ...)
   return(tibble::as_tibble(out))
 }

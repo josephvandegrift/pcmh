@@ -24,4 +24,6 @@ Imports:
     pdftools,
     tibble,
     dplyr,
-    vroom
+    vroom,
+    janitor,
+    stringr
