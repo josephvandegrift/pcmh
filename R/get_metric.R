@@ -23,8 +23,10 @@
   out <- dplyr::arrange(.data_frame, .data_frame$y)
   out <- pcmh::.filter_pdf_data(out, ...)
   out <- dplyr::filter(out, stringr::str_detect(out$text, "\\d+"))
-  out <- tibble(dnmtr_num = readr::parse_number(out[[3, 1]]),
+  out <- tibble(dnmtr_num = readr::parse_number(out[[5, 1]]),
                 nmrtr_num = readr::parse_number(out[[1, 1]]),
-                rate = readr::parse_number(out[[2, 1]]))
+                rate = readr::parse_number(out[[3, 1]]),
+                avg = readr::parse_number(out[[2, 1]]),
+                state = readr::parse_number(out[[4, 1]]))
   return(tibble::as_tibble(out))
 }
