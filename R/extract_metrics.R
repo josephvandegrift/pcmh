@@ -8,11 +8,26 @@
 #' @return Returns a \code{tibble} or metric data.
 #' @export
 #'
+#' @importFrom dplyr filter
+#' @importFrom stringr str_detect
+#' @importFrom tibble as_tibble
+#'
 #' @examples
 #' \dontrun{
 #' extract_metrics(.data_frame)
 #' }
 extract_metrics <- function(.data_frame) {
-  out <-
+  .params <- dplyr::filter(.data_frame,
+                           stringr::str_detect(.data_frame$text, "\\b_{5,9}\\b"))
+  .params <- list(.params$page, .params$x, .params$y)
+  out <- furrr::future_pmap_dfr(
+    .l = .params,
+    .f = ~ pcmh::.get_metric(.data_frame,
+                             ..1,
+                             ..2,
+                             max(.data_frame$x),
+                             ..3-20,
+                             ..3+22)
+  )
   return(tibble::as_tibble(out))
 }
