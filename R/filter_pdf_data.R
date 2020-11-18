@@ -31,7 +31,7 @@
                        .data_frame$x %in% (x_min:x_max) &
                        .data_frame$y %in% (y_min:y_max))
   out <- ifelse(length(out$text) == 0,
-                -99,
+                "-99",
                 out["text"])
   out <- tibble::tibble(text = out[[1]])
   return(tibble::as_tibble(out))
