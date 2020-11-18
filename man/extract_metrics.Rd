@@ -10,10 +10,10 @@ extract_metrics(.data_frame)
 \item{.data_frame}{A \code{dataframe} read in by \code{\link[pcmh]{import_pdf_data}}.}
 }
 \value{
-Returns a \code{tibble} or metric data.
+Returns a \code{tibble} of metric data.
 }
 \description{
-This function uses \code{\link[pcmh]{.get_metric}} function to extract each
+This function uses \code{\link[pcmh]{.get_metric2}} function to extract each
 metric from a \code{.pdf} PCMH report and arrange them into a \code{tibble}.
 }
 \examples{
