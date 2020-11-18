@@ -48,7 +48,7 @@
                                    .x + 100,
                                    max(.data_frame$x),
                                    .y,
-                                   .y + 22)
+                                   .y + 20)
   out <- tibble(
     dnmtr_num = readr::parse_number(.num$text),
     nmrtr_num = readr::parse_number(.den$text),
