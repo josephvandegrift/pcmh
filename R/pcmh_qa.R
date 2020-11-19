@@ -18,9 +18,11 @@
 #' pcmh_qa(.path_pdf, .path_metric, .path_out)
 #' }
 pcmh_qa <- function(.path_pdf, .path_metric, .path_out) {
-  pdf_data <- pcmh::import_pdf_data(.path_pdf)
+  pcmh_reports <- pcmh::import_pdf_data(.path_pdf, regexp == "PCMH")
+  ss_reports <- pcmh::import_pdf_data(.path_pdf, regexp == "Shared")
   metric_data <- pcmh::import_metric_data(.path_metric, regexp = "metric.csv")
   metric_descriptions <- pcmh::import_metric_data(.path_metric, regexp = "mets_desc.csv")
-  metrics <- pcmh::extract_metrics(pdf_data[[2]], metric_descriptions)
+  pcmh_metrics <- pcmh::extract_metrics(pcmh_reports, metric_descriptions)
+
   return(paste0("You completed PCMH QA!"))
 }
