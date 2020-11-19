@@ -4,10 +4,13 @@
 \alias{extract_metrics}
 \title{Extract Metrics}
 \usage{
-extract_metrics(.data_frame)
+extract_metrics(.data_frame, .met_desc)
 }
 \arguments{
 \item{.data_frame}{A \code{dataframe} read in by \code{\link[pcmh]{import_pdf_data}}.}
+
+\item{.met_desc}{A \code{dataframe} containing the metric descriptions read in
+using \code{\link[pcmh]{.read_metric_data}}.}
 }
 \value{
 Returns a \code{tibble} of metric data.
