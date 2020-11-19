@@ -13,20 +13,23 @@
 #' @return Retrurns the character string "You completed PCMH QA!"
 #' @export
 #'
-#' @importFrom furrr future_map_dfr
-#'
 #' @examples
 #' \dontrun{
 #' pcmh_qa(.path_pdf, .path_metric, .path_out)
 #' }
 pcmh_qa <- function(.path_pdf, .path_metric, .path_out) {
-  pcmh_reports <- pcmh::import_pdf_data(.path_pdf, regexp = "PCMH")
-  ss_reports <- pcmh::import_pdf_data(.path_pdf, regexp = "Shared")
-  metric_data <- pcmh::import_metric_data(.path_metric, regexp = "metrics.csv")
-  metric_descriptions <- pcmh::.read_metric_data(.path_metric, regexp = "mets_desc.csv")
-  pcmh_metrics <- furrr::future_map_dfr(pcmh_reports,
-                                       pcmh::extract_metrics(.x, metric_descriptions))
-  out <- pcmh::check_metrics(pcmh_metrics, metric_data)
+  pcmh_reports <-
+    pcmh::import_pdf_data(.path_pdf, regexp = "PCMH")
+  ss_reports <-
+    pcmh::import_pdf_data(.path_pdf, regexp = "Shared")
+  metric_data <-
+    pcmh::import_metric_data(.path_metric, regexp = "metrics.csv")
+  metric_descriptions <-
+    pcmh::.read_metric_data(.path_metric, regexp = "mets_desc.csv")
+  pcmh_metrics <- furrr::future_pmap_dfr(list(pcmh_reports),
+                                         ~ extract_metrics(..1, metric_descriptions))
+  out <-
+    pcmh::check_metrics(pcmh_metrics, metric_data)
   return(out)
   return(paste0("You completed PCMH QA!"))
 }
