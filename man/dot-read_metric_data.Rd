@@ -7,9 +7,9 @@
 .read_metric_data(.path, ...)
 }
 \arguments{
-\item{.path}{Filepath to the oracle data.}
+\item{.path}{Filepath to the directory of metric data.}
 
-\item{...}{Extra parameters to be passed to \code{\link[vroom]{vroom}}.}
+\item{...}{Extra parameters to be passed to \code{\link[fs]{dir_ls}}.}
 }
 \value{
 Returns a \code{tibble} of the \code{.csv} oracle data
