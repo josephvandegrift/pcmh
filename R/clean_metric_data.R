@@ -19,6 +19,6 @@
 #' }
 .clean_metric_data <- function(.data_frame) {
   out <- janitor::clean_names(.data_frame)
-  out["dnmtr_num"] <- round(out["dnmtr_num"], 1)
+  out <- dplyr::mutate(out, dnmtr_num = round(out$dnmtr_num, 1))
   return(tibble::as_tibble(out))
 }
