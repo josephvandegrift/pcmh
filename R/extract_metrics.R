@@ -27,6 +27,6 @@ extract_metrics <- function(.data_frame, .met_desc) {
                                                           ..1,
                                                           ..2,
                                                           ..3))
-  out <- cbind(.met_desc, out)
+  out <- cbind(prvdr_num = .data_frame$prvdr_num[1], .met_desc, out)
   return(tibble::as_tibble(out))
 }
