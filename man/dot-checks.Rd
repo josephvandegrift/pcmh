@@ -4,7 +4,7 @@
 \alias{.checks}
 \title{Checks}
 \usage{
-.checks(.metrics, .metric_data, .prvdr_num, .metric)
+.checks(.metrics, .metric_data, .prvdr_num, .metric, .page)
 }
 \arguments{
 \item{.metrics}{Output from \code{\link[pcmh]{extract_metrics}}.}
@@ -14,6 +14,8 @@
 \item{.prvdr_num}{Specific provider number.}
 
 \item{.metric}{Specific metric to be checked.}
+
+\item{.page}{Specific page number the metric is on.}
 }
 \value{
 Returns a \code{tibble} of \code{TRUE} if the value matched the data
