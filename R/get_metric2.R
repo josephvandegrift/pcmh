@@ -50,8 +50,8 @@
                                    .y,
                                    .y + 20)
   out <- tibble(
-    dnmtr_num = readr::parse_number(.num$text),
-    nmrtr_num = readr::parse_number(.den$text),
+    dnmtr_num = readr::parse_number(.den$text),
+    nmrtr_num = readr::parse_number(.num$text),
     rate = readr::parse_number(.rate$text),
     avg = readr::parse_number(.avg$text),
     state = readr::parse_number(.state$text)
