@@ -1,7 +1,7 @@
 #' Get Metric
 #'
 #' This function is a wrapper around \code{\link[pcmh]{.filter_pdf_data}} and
-#'   extracts the specific \code{.metric} input.
+#'   extracts the metric data from a \code{dataframe}.
 #'
 #' @param .data_frame A \code{dataframe} you wish to extract data from.
 #' @param ... Extra parameters to be passed to \code{\link[pcmh]{.filter_pdf_data}}.
@@ -17,7 +17,7 @@
 #'
 #' @examples
 #' \dontrun{
-#' .get_metric(.metric)
+#' .get_metric(.data_frame)
 #' }
 .get_metric <- function(.data_frame, ...) {
   out <- dplyr::arrange(.data_frame, .data_frame$y)

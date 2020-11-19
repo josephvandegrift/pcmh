@@ -16,10 +16,10 @@ Returns a \code{tibble} of the a specific metric.
 }
 \description{
 This function is a wrapper around \code{\link[pcmh]{.filter_pdf_data}} and
-extracts the specific \code{.metric} input.
+extracts the metric data from a \code{dataframe}.
 }
 \examples{
 \dontrun{
-.get_metric(.metric)
+.get_metric(.data_frame)
 }
 }
