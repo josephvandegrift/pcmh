@@ -28,7 +28,13 @@
   df2 <- dplyr::filter(.metric_data,
                        .metric_data$prvdr_num == .prvdr_num,
                        .metric_data$mtrc_cd == .metric)
-  out <- df1[c("dnmtr_num", "nmrtr_num")] == df2[c("dnmtr_num", "nmrtr_num")]
+  out <- df1[c("dnmtr_num",
+               "nmrtr_num",
+               "rate",
+               "avg")] == df2[c("dnmtr_num",
+                                "nmrtr_num",
+                                "rate",
+                                "rate")]
   out <- cbind(df1[1:5], out)
   return(tibble::as_tibble(out))
 }

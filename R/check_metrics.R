@@ -1,7 +1,7 @@
 #' Check Metrics
 #'
 #' This function is a wrapper around \code{\link[pcmh]{.checks}}.
-#'   This function uses \code{\link[furrr]{furure_pmap_dfr}} to map the
+#'   This function uses \code{\link[furrr]{future_pmap_dfr}} to map the
 #'   \code{\link[pcmh]{.checks}} function to each of the 26 metrics extraced
 #'   from \code{\link[pcmh]{extract_metrics}}.
 #'
