@@ -13,6 +13,7 @@
 #'   from oracle or a \code{FALSE} if it did not.
 #' @export
 #'
+#' @importFrom dplyr near
 #' @importFrom dplyr filter
 #' @importFrom tibble as_tibble
 #'
@@ -20,21 +21,30 @@
 #' \dontrun{
 #' .checks(.metrics, .metric_data, .prvdr_num, .page, .metric)
 #' }
-.checks <- function(.metrics, .metric_data, .prvdr_num, .metric, .page) {
-  df1 <- dplyr::filter(.metrics,
-                       .metrics$prvdr_num == .prvdr_num,
-                       .metrics$metric_var == .metric,
-                       .metrics$page == .page)
-  df2 <- dplyr::filter(.metric_data,
-                       .metric_data$prvdr_num == .prvdr_num,
-                       .metric_data$mtrc_cd == .metric)
-  out <- df1[c("dnmtr_num",
-               "nmrtr_num",
-               "rate",
-               "avg")] == df2[c("dnmtr_num",
-                                "nmrtr_num",
-                                "rate",
-                                "rate")]
-  out <- cbind(df1[1:5], out)
-  return(tibble::as_tibble(out))
-}
+.checks <-
+  function(.metrics,
+           .metric_data,
+           .prvdr_num,
+           .metric,
+           .page) {
+    df1 <- dplyr::filter(
+      .metrics,
+      .metrics$prvdr_num == .prvdr_num,
+      .metrics$metric_var == .metric,
+      .metrics$page == .page
+    )
+    df2 <- dplyr::filter(
+      .metric_data,
+      .metric_data$prvdr_num == .prvdr_num,
+      .metric_data$mtrc_cd == .metric
+    )
+    out <- dplyr::near(df1[c("dnmtr_num",
+                             "nmrtr_num",
+                             "rate",
+                             "avg")], df2[c("dnmtr_num",
+                                            "nmrtr_num",
+                                            "rate",
+                                            "rate")])
+    out <- cbind(df1[1:5], out)
+    return(tibble::as_tibble(out))
+  }
