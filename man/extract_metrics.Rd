@@ -16,7 +16,7 @@ using \code{\link[pcmh]{.read_metric_data}}.}
 Returns a \code{tibble} of metric data.
 }
 \description{
-This function uses \code{\link[pcmh]{.get_metric2}} function to extract each
+This function uses \code{\link[pcmh]{.get_metric}} function to extract each
 metric from a \code{.pdf} PCMH report and arrange them into a \code{tibble}.
 }
 \examples{
