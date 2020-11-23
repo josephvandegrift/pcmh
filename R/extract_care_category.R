@@ -20,6 +20,20 @@
 #' .extract_care_categry(.data_frame)
 #' }
 .extract_care_categry <- function(.data_frame) {
+  .care_categories <- c("Anesthesia",
+                        "Durable Medical Equipment",
+                        "Emergency Department",
+                        "Inpatient Hospital Facility",
+                        "Inpatient Professional",
+                        "Outpatient Imaging",
+                        "Outpatient Lab",
+                        "Outpatient Procedures",
+                        "Outpatient Professional",
+                        "Outpatient Surgery Facility",
+                        "Outpatient Surgery Professional",
+                        "Pharmaceuticals",
+                        "Other",
+                        "OVERALL")
   .params <- dplyr::filter(
     .data_frame,
     .data_frame$page > 12,
@@ -35,5 +49,6 @@
                                                    ..2 + 50,
                                                    ..3 + 13,
                                                    ..3 + 225))
+  out <- cbind(.care_categories, out)
   return(tibble::as_tibble(out))
 }
