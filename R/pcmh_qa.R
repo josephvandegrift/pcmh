@@ -30,6 +30,6 @@ pcmh_qa <- function(.path_pdf, .path_metric, .path_out) {
                                          ~ extract_metrics(..1, metric_descriptions))
   out <-
     pcmh::check_metrics(pcmh_metrics, metric_data)
-  write.csv(out, .path_out)
+  # write.csv(out, .path_out)
   return(out)
 }
