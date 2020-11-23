@@ -21,15 +21,15 @@
 .get_metric2 <- function(.data_frame, .page, .x, .y) {
   .num <- pcmh::.filter_pdf_data(.data_frame,
                                  .page,
-                                 .x + 1,
+                                 .x - 10,
                                  .x + 50,
                                  .y - 25,
-                                 .y)
+                                 .y - 1)
   .den <- pcmh::.filter_pdf_data(.data_frame,
                                  .page,
-                                 .x + 1,
+                                 .x - 10,
                                  .x + 50,
-                                 .y,
+                                 .y + 1,
                                  .y + 25)
   .rate <- pcmh::.filter_pdf_data(.data_frame,
                                   .page,
