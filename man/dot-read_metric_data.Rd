@@ -2,7 +2,7 @@
 % Please edit documentation in R/read_metric_data.R
 \name{.read_metric_data}
 \alias{.read_metric_data}
-\title{Read Metrics Data}
+\title{Read Metric Data}
 \usage{
 .read_metric_data(.path, ...)
 }
@@ -20,6 +20,6 @@ oracle data to be checked against the \code{.pdf} PCMH report data.
 }
 \examples{
 \dontrun{
-.read_oracle_data(.path)
+.read_metric_data(.path)
 }
 }

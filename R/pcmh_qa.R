@@ -18,18 +18,9 @@
 #' pcmh_qa(.path_pdf, .path_metric, .path_out)
 #' }
 pcmh_qa <- function(.path_pdf, .path_metric, .path_out) {
-  pcmh_reports <-
-    pcmh::import_pdf_data(.path_pdf, regexp = "PCMH")
-  ss_reports <-
-    pcmh::import_pdf_data(.path_pdf, regexp = "Shared")
-  metric_data <-
-    pcmh::import_metric_data(.path_metric, regexp = "metrics.csv")
-  metric_descriptions <-
-    pcmh::.read_metric_data(.path_metric, regexp = "mets_desc.csv")
-  pcmh_metrics <- furrr::future_pmap_dfr(list(pcmh_reports),
-                                         ~ extract_metrics(..1, metric_descriptions))
-  out <-
-    pcmh::check_metrics(pcmh_metrics, metric_data)
-  # write.csv(out, .path_out)
-  return(out)
+  pcmh_out <-
+    pcmh::check_report(.path_pdf, .path_metric, "PCMH")
+  # shared_out <-
+  #   pcmh::check_report(.path_pdf, .path_metic, "Shared")
+  return(pcmh_out)
 }

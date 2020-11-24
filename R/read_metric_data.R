@@ -1,4 +1,4 @@
-#' Read Metrics Data
+#' Read Metric Data
 #'
 #' This function uses \code{\link[vroom]{vroom}} to read in the \code{.csv}
 #'   oracle data to be checked against the \code{.pdf} PCMH report data.
@@ -15,7 +15,7 @@
 #'
 #' @examples
 #' \dontrun{
-#' .read_oracle_data(.path)
+#' .read_metric_data(.path)
 #' }
 .read_metric_data <- function(.path, ...) {
   .file <- fs::dir_ls(.path, ...)
