@@ -3,7 +3,7 @@
 #' This function generates the output for the QA for either PCMH or Shared Savings
 #'   reports.
 #'
-#' @param ..path_pdf A \code{filepath} to the directory of the \code{.pdf} PCMH
+#' @param .path_pdf A \code{filepath} to the directory of the \code{.pdf} PCMH
 #'   reports.
 #' @param .path_metric A \code{filepath} to the directory of the metric data and
 #'   descriptions pulled from oracle.

@@ -7,13 +7,13 @@
 check_report(.path_pdf, .path_metric, .report_type = "PCMH")
 }
 \arguments{
+\item{.path_pdf}{A \code{filepath} to the directory of the \code{.pdf} PCMH
+reports.}
+
 \item{.path_metric}{A \code{filepath} to the directory of the metric data and
 descriptions pulled from oracle.}
 
 \item{.report_type}{A \code{character string}; either "PCMH" or "Shared".}
-
-\item{..path_pdf}{A \code{filepath} to the directory of the \code{.pdf} PCMH
-reports.}
 }
 \value{
 Returns a \code{tibble} of metric checks for either the PCMH or
