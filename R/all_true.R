@@ -13,6 +13,9 @@
 #' @importFrom tibble as_tibble
 #'
 #' @examples
+#' \dontrun{
+#' .all_true(.data_frame, .prvdr_num)
+#' }
 .all_true <- function(.data_frame, .prvdr_num) {
   out <- .data_frame[.data_frame$prvdr_num == .prvdr_num, 6:9]
   out <- all(out == TRUE)

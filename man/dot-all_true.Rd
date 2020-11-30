@@ -18,3 +18,8 @@ Returns a tibble of \code{.prvdr_num} and either \code{TRUE} or
 \description{
 Helper function for \code{\link[pcmh]{.generate_summary_page}}.
 }
+\examples{
+\dontrun{
+.all_true(.data_frame, .prvdr_num)
+}
+}
