@@ -3,6 +3,7 @@
 export(.add_index)
 export(.add_page_numbers)
 export(.add_prvdr_num)
+export(.all_true)
 export(.checks)
 export(.clean_metric_data)
 export(.extract_care_categry)
