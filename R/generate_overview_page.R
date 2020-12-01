@@ -34,8 +34,8 @@
     pass_number,
     fail_number,
     total,
-    pass_freq,
-    fail_freq
+    round(pass_freq, 2),
+    round(fail_freq, 2)
   )
   return(tibble::as_tibble(out))
 }
