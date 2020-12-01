@@ -4,7 +4,7 @@
 \alias{pcmh_qa}
 \title{PCMH QA}
 \usage{
-pcmh_qa(.path_pdf, .path_metric, .path_out)
+pcmh_qa(.path_pdf, .path_metric, .path_out, .report_type = "PCMH")
 }
 \arguments{
 \item{.path_pdf}{Path to the \code{directory} containing the \code{.pdf} PCMH

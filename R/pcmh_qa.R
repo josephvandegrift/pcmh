@@ -13,14 +13,14 @@
 #' @return Retrurns the character string "You completed PCMH QA!"
 #' @export
 #'
+#' @importFrom openxlsx write.xlsx
+#'
 #' @examples
 #' \dontrun{
 #' pcmh_qa(.path_pdf, .path_metric, .path_out)
 #' }
-pcmh_qa <- function(.path_pdf, .path_metric, .path_out) {
-  pcmh_out <-
-    pcmh::check_report(.path_pdf, .path_metric, "PCMH")
-  # shared_out <-
-  #   pcmh::check_report(.path_pdf, .path_metic, "Shared")
-  return(pcmh_out)
+pcmh_qa <- function(.path_pdf, .path_metric, .path_out, .report_type = "PCMH") {
+  pcmh_out <- pcmh::qa_report(.path_pdf, .path_metric, .report_type)
+  openxlsx::write.xlsx(pcmh_out, file = .path_out)
+  return(paste0("You completed PCMH Qa!"))
 }

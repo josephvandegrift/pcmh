@@ -9,7 +9,7 @@
 #' @return Returns a \code{tibble} of the \code{.csv} oracle data
 #' @export
 #'
-#' @importFrom vroom vroom
+#' @importFrom openxlsx read.xlsx
 #' @importFrom fs dir_ls
 #' @importFrom tibble as_tibble
 #'
@@ -19,6 +19,6 @@
 #' }
 .read_metric_data <- function(.path, ...) {
   .file <- fs::dir_ls(.path, ...)
-  out <- vroom::vroom(.file)
+  out <- openxlsx::read.xlsx(.file)
   return(tibble::as_tibble(out))
 }

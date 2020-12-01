@@ -23,9 +23,9 @@ check_report <- function(.path_pdf, .path_metric, .report_type = "PCMH") {
     reports <-
       pcmh::import_pdf_data(.path_pdf, regexp = .report_type)
     metric_data <-
-      pcmh::import_metric_data(.path_metric, regexp = paste0(.report_type, "_", "metrics"))
-    metric_descriptions <-
-      pcmh::.read_metric_data(.path_metric, regexp = paste0(.report_type, "_", "desc"))
+      pcmh::import_metric_data(.path_metric, regexp = paste0("\\/", .report_type, "_", "metrics"))
+    # desc_path <- fs::dir_ls(.path_metric, regexp = paste0("\\/", .report_type, "_", "desc"))
+    metric_descriptions <- .read_metric_data(.path_metric, regexp = paste0("\\/", .report_type, "_", "desc"))
     metrics <-
       furrr::future_pmap_dfr(list(reports),
                              ~ extract_metrics(..1, metric_descriptions))

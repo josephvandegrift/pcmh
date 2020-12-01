@@ -27,4 +27,5 @@ Imports:
     vroom,
     janitor,
     stringr,
-    readr
+    readr,
+    openxlsx
