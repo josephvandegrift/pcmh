@@ -17,6 +17,22 @@ qa_report <- function(.path_pdf, .path_metric, .report_type = "PCMH") {
   detail <- pcmh::check_report(.path_pdf, .path_metric, .report_type)
   summary <- pcmh::.generate_summary_page(detail)
   overview <- pcmh::.generate_overview_page(summary, .report_type)
+  names(detail) <- c("Provider Number",
+                     "Metric Type",
+                     "Metric Descriptions",
+                     "Metric Variable",
+                     "Page #",
+                     "Denominator",
+                     "Numerator",
+                     "Metric Value",
+                     "Graphic Value")
+  names(summary) <- c("Provider Number", "Pass/Fail")
+  names(overview) <- c("Report Type",
+                       "Pass #",
+                       "Fail #",
+                       "Total Reports",
+                       "Pass %",
+                       "Fail %")
   out <- list("Overview Statistics" = overview,
               "Summary" = summary,
               "Detail" = detail)
