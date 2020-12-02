@@ -9,6 +9,7 @@
 #' @return Returns a 1 x 6 \code{tibble} of the overview statistics.
 #' @export
 #'
+#' @importFrom scales percent
 #' @importFrom tibble tribble
 #' @importFrom tibble as_tibble
 #'
@@ -34,8 +35,8 @@
     pass_number,
     fail_number,
     total,
-    round(pass_freq, 2),
-    round(fail_freq, 2)
+    scales::percent(pass_freq, scale = 100),
+    scales::percent(fail_freq, scale = 100)
   )
   return(tibble::as_tibble(out))
 }

@@ -28,4 +28,5 @@ Imports:
     janitor,
     stringr,
     readr,
-    openxlsx
+    openxlsx,
+    scales
