@@ -21,7 +21,7 @@
   report_type = .report_type
   pass_number = sum(.data_frame$check == TRUE)
   fail_number = sum(.data_frame$check == FALSE)
-  total = sum(.data_frame$check)
+  total = pass_number + fail_number
   pass_freq = pass_number / total
   fail_freq = fail_number / total
   out <- tibble::tribble(
