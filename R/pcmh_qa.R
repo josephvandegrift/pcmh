@@ -9,6 +9,7 @@
 #' @param .path_metric Path to the \code{.csv} metric data to be passed to
 #'   \code{\link[pcmh]{import_metric_data}}.
 #' @param .path_out Path to the location the output will be saved.
+#' @param .report_type A \code{character} string of \code{"PCMH"} or \code{"Shared"}.
 #'
 #' @return Retrurns the character string "You completed PCMH QA!"
 #' @export

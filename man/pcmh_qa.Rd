@@ -14,6 +14,8 @@ reports to be passed to \code{\link[pcmh]{import_pdf_data}}.}
 \code{\link[pcmh]{import_metric_data}}.}
 
 \item{.path_out}{Path to the location the output will be saved.}
+
+\item{.report_type}{A \code{character} string of \code{"PCMH"} or \code{"Shared"}.}
 }
 \value{
 Retrurns the character string "You completed PCMH QA!"
