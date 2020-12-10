@@ -38,13 +38,13 @@
       .metric_data$prvdr_num == .prvdr_num,
       .metric_data$mtrc_cd == .metric
     )
-    out <- dplyr::near(df1[c("dnmtr_num",
+    out <- dplyr::near(df1[1, c("dnmtr_num",
                              "nmrtr_num",
                              "rate",
-                             "avg")], df2[c("dnmtr_num",
+                             "avg")], df2[1, c("dnmtr_num",
                                             "nmrtr_num",
                                             "rate",
                                             "rate")])
-    out <- cbind(df1[1:5], out)
+    out <- cbind(df1[1, 1:5], out)
     return(tibble::as_tibble(out))
   }
