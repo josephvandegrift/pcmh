@@ -49,6 +49,6 @@
                                                    ..2 + 50,
                                                    ..3 + 13,
                                                    ..3 + 225))
-  out <- cbind(.care_categories, out)
+  out <- cbind(.data_frame$prvdr_num[1], .care_categories, out)
   return(tibble::as_tibble(out))
 }
