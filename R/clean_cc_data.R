@@ -4,6 +4,7 @@
 #'   formats the data for comparison.
 #'
 #' @param data_frame A \code{dataframe} of care category data.
+#' @param n A positive \code{intiger} to be passed to \code{\link[pcmh]{round_df}}.
 #'
 #' @return Returns a \code{tibble} of clean, formatted care category data.
 #' @export
@@ -14,7 +15,7 @@
 #' \dontrun{
 #' .clean_cc_data(data_frame)
 #' }
-.clean_cc_data <- function(data_frame) {
-  out <- pcmh::round_df(data_frame, 2)
+.clean_cc_data <- function(data_frame, n = 0) {
+  out <- pcmh::round_df(data_frame, n)
   return(tibble::as_tibble(out))
 }

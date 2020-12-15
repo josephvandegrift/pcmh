@@ -16,6 +16,6 @@
 #' }
 import_cc_data <- function(path, ...) {
   out <- pcmh::.read_metric_data(path, ...)
-  out <- pcmh::.clean_cc_data(out)
+  out <- pcmh::.clean_cc_data(out, n = 2)
   return(tibble::as_tibble(out))
 }

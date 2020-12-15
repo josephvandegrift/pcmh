@@ -14,31 +14,35 @@
 #' @importFrom dplyr filter
 #' @importFrom stringr str_detect
 #' @importFrom furrr future_pmap_dfc
+#' @importFrom tibble tibble
+#' @importFrom tibble as_tibble
 #'
 #' @examples
 #' \dontrun{
 #' .extract_care_categry(.data_frame)
 #' }
 .extract_care_categry <- function(.data_frame) {
-  .care_categories <- c("Anesthesia",
-                        "Durable Medical Equipment",
-                        "Emergency Department",
-                        "Inpatient Hospital Facility",
-                        "Inpatient Professional",
-                        "Outpatient Imaging",
-                        "Outpatient Lab",
-                        "Outpatient Procedures",
-                        "Outpatient Professional",
-                        "Outpatient Surgery Facility",
-                        "Outpatient Surgery Professional",
-                        "Pharmaceuticals",
-                        "Other",
-                        "OVERALL")
+  .care_categories <- c(
+    "Anesthesia",
+    "Durable Medical Equipment",
+    "Emergency Department",
+    "Inpatient Hospital Facility",
+    "Inpatient Professional",
+    "Outpatient Imaging",
+    "Outpatient Lab",
+    "Outpatient Procedures",
+    "Outpatient Professional",
+    "Outpatient Surgery Facility",
+    "Outpatient Surgery Professional",
+    "Pharmaceuticals",
+    "Other",
+    "OVERALL"
+  )
   .params <- dplyr::filter(
     .data_frame,
     .data_frame$page > 12,
     stringr::str_detect(.data_frame$text, "Beneficiar")
-  )[2:4, ]
+  )[2:4,]
   .params <- list(.params$page,
                   .params$x,
                   .params$y)
@@ -46,9 +50,16 @@
                                 ~ .filter_pdf_data(.data_frame,
                                                    ..1,
                                                    ..2,
-                                                   ..2 + 50,
-                                                   ..3 + 13,
-                                                   ..3 + 225))
-  out <- cbind(.data_frame$prvdr_num[1], .care_categories, out)
+                                                   ..2+50,
+                                                   ..3+13,
+                                                   ..3+225))
+  out <-
+    tibble::tibble(
+      "Provider Number" = .data_frame$prvdr_num[1],
+      "Care Category" = .care_categories,
+      "Claim Count" = readr::parse_number(out$text...1),
+      "Claim Avg" = readr::parse_number(out$text...2),
+      "Bene Avg" = readr::parse_number(out$text...3)
+    )
   return(tibble::as_tibble(out))
 }
