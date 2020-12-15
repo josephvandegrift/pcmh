@@ -14,8 +14,8 @@
 #' \dontrun{
 #' .import_cc_data(path, ...)
 #' }
-.import_cc_data <- function(path, ...) {
+import_cc_data <- function(path, ...) {
   out <- pcmh::.read_metric_data(path, ...)
-
+  out <- pcmh::.clean_cc_data(out)
   return(tibble::as_tibble(out))
 }

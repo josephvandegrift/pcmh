@@ -1,6 +1,6 @@
 #' Round Data Frame
 #'
-#' This function uses \code{\link{pcmh}{round2}} to round each of the \code{numeric}
+#' This function uses \code{\link[pcmh]{round2}} to round each of the \code{numeric}
 #'   columns in a dataframe.
 #'
 #' @param data_frame A \code{dataframe} with \code{numeric} columns.

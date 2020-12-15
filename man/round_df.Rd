@@ -15,7 +15,7 @@ round_df(data_frame, n = 0)
 Returns a \code{tibble} of with rounded \code{numeric} columns.
 }
 \description{
-This function uses \code{\link{pcmh}{round2}} to round each of the \code{numeric}
+This function uses \code{\link[pcmh]{round2}} to round each of the \code{numeric}
 columns in a dataframe.
 }
 \examples{
