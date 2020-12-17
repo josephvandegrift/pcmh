@@ -14,7 +14,18 @@
 #' qa_report(.path_pdf, .path_metric, .report_type = "PCMH")
 #' }
 qa_report <- function(.path_pdf, .path_metric, .report_type = "PCMH") {
-  detail <- pcmh::check_report(.path_pdf, .path_metric, .report_type)
+  reports <-
+    pcmh::import_pdf_data(.path_pdf, regexp = .report_type)
+  metric_data <-
+    pcmh::import_metric_data(.path_metric, regexp = paste0("\\/", .report_type, "_", "metrics"))
+  metric_descriptions <-
+    pcmh::.read_metric_data(.path_metric, regexp = paste0("\\/", .report_type, "_", "desc"))
+  care_category_data <-
+    pcmh::import_cc_data(.path_metric, regexp = paste0("\\/", .report_type, "_", "cc"))
+  metrics <-
+    furrr::future_pmap_dfr(list(reports),
+                           ~ extract_metrics(..1, metric_descriptions))
+  detail <- pcmh::check_metrics(metrics, metric_data)
   summary <- pcmh::.generate_summary_page(detail)
   overview <- pcmh::.generate_overview_page(summary, .report_type)
   names(detail) <- c("Provider Number",
@@ -35,6 +46,7 @@ qa_report <- function(.path_pdf, .path_metric, .report_type = "PCMH") {
                        "Fail %")
   out <- list("Overview Statistics" = overview,
               "Summary" = summary,
-              "Detail" = detail)
+              "Detail" = detail,
+              "Care Categories" = care_category_data)
   return(out)
 }
