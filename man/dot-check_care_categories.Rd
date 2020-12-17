@@ -4,12 +4,14 @@
 \alias{.check_care_categories}
 \title{Check Care Categories}
 \usage{
-.check_care_categories(.care_categories, .care_categories_data)
+.check_care_categories(.care_categories, .care_categories_data, .prvdr_num)
 }
 \arguments{
 \item{.care_categories}{A \code{dataframe} from \code{\link[pcmh]{.extract_care_categry}}}
 
 \item{.care_categories_data}{A \code{dataframe} from \code{\link[pcmh]{import_cc_data}}.}
+
+\item{.prvdr_num}{An \code{intiger}.}
 }
 \value{
 Returns a \code{tibble} of \code{TRUE}/\code{FALSE}.
