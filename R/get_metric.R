@@ -35,22 +35,22 @@
                                  .y + 25)
   .rate <- pcmh::.filter_pdf_data(.data_frame,
                                   .page,
-                                  .x + 65,
-                                  .x + 100,
-                                  .y - 10,
+                                  .x + 70,
+                                  .x + 125,
+                                  .y - 15,
                                   .y + 10)
   .avg <- pcmh::.filter_pdf_data(.data_frame,
                                  .page,
-                                 .x + 100,
+                                 .x + 125,
                                  max(.data_frame$x),
                                  .y - 22,
                                  .y)
   .state <- pcmh::.filter_pdf_data(.data_frame,
                                    .page,
-                                   .x + 100,
+                                   .x + 125,
                                    max(.data_frame$x),
-                                   .y,
-                                   .y + 20)
+                                   .y - 1,
+                                   .y + 15)
   out <- tibble(
     dnmtr_num = readr::parse_number(.den$text),
     nmrtr_num = readr::parse_number(.num$text),
