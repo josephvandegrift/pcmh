@@ -40,7 +40,7 @@
   )
   .params <- dplyr::filter(
     .data_frame,
-    .data_frame$page > 12,
+    .data_frame$page > 11,
     stringr::str_detect(.data_frame$text, "Beneficiar")
   )[2:4,]
   .params <- list(.params$page,
