@@ -25,7 +25,7 @@ qa_report <- function(.path_pdf, .path_metric, .report_type = "PCMH") {
   metrics <-
     furrr::future_pmap_dfr(list(reports),
                            ~ extract_metrics(..1, metric_descriptions))
-  care_categories <- furrr::future_map_dfr(reports, .extract_care_categry)
+  care_categories <- furrr::future_map_dfr(reports, .extract_care_category)
   detail <- pcmh::check_metrics(metrics, metric_data)
   summary <- pcmh::.generate_summary_page(detail)
   overview <- pcmh::.generate_overview_page(summary, .report_type)

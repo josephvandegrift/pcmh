@@ -21,7 +21,7 @@
 #' \dontrun{
 #' .extract_care_categry(.data_frame)
 #' }
-.extract_care_categry <- function(.data_frame) {
+.extract_care_category <- function(.data_frame) {
   .care_categories <- c(
     "Anesthesia",
     "Durable Medical Equipment",

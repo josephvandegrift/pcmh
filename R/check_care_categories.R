@@ -3,7 +3,7 @@
 #' This function checks the care category section from a PCMH report against the
 #'   data pulled from oracle.
 #'
-#' @param .care_categories A \code{dataframe} from \code{\link[pcmh]{.extract_care_categry}}
+#' @param .care_categories A \code{dataframe} from \code{\link[pcmh]{.extract_care_category}}
 #' @param .care_categories_data A \code{dataframe} from \code{\link[pcmh]{import_cc_data}}.
 #' @param .prvdr_num An \code{intiger}.
 #'
