@@ -18,7 +18,30 @@
 #' .read_metric_data(.path)
 #' }
 .read_metric_data <- function(.path, ...) {
-  .file <- fs::dir_ls(.path, ...)
-  out <- openxlsx::read.xlsx(.file)
+  # Get filepath from directory
+  filepath <- fs::dir_ls(.path, ...)
+
+  # Check that length of file = 1
+  if(length(filepath) == 0) {
+    return("Inputs didn't return a filepath")
+  } else if(length(filepath) > 1) {
+    return("Inputs returned more than 1 filepath")
+  } else if(length(filepath) == 1) {
+    # Check for file extension
+    ext <- pcmh::get_ext(filepath)
+  }
+
+  # Read in data based on file extension
+  if(ext == "csv") {
+    out <-
+      vroom::vroom(filepath)
+  } else if(ext == "xlsx") {
+    out <-
+      openxlsx::read.xlsx(filepath)
+  } else {
+    return("File extension not supported")
+  }
+
+
   return(tibble::as_tibble(out))
 }
