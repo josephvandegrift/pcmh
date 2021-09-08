@@ -12,6 +12,7 @@
 #' @importFrom openxlsx read.xlsx
 #' @importFrom fs dir_ls
 #' @importFrom tibble as_tibble
+#' @importFrom vroom vroom
 #'
 #' @examples
 #' \dontrun{

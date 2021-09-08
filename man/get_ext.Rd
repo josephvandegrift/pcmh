@@ -16,3 +16,8 @@ Returns a \code{character string} of the file extension of \code{.filepath}.
 This function takes a filepath as input and returns the extension as a
 \code{character string}.
 }
+\examples{
+\dontrun{
+get_ext(.filepath)
+}
+}

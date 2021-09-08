@@ -9,6 +9,9 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
+#' get_ext(.filepath)
+#' }
 get_ext <- function(.filepath) {
   # Make sure .filepath is a character
   path <- as.character(.filepath)
