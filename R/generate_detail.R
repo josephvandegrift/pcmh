@@ -22,6 +22,8 @@ generate_detail <-
     # Initialize parameters
     params <-
       .crosswalk
+
+
     # Make sure variable is in lower case
     params["variable"] <-
       tolower(params["variable"])
