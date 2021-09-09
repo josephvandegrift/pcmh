@@ -5,6 +5,7 @@
 #'
 #'
 #' @param .path A \code{filepath} to the \code{.csv} metric data.
+#' @param .regexp A \code{regular expression} to be passed to \code{\link[pcmh]{.read_metric_data}}
 #' @param ... Extra parameters to be passed to \code{\link[pcmh]{.read_metric_data}}.
 #'
 #' @return Returns \code{.path} as a \code{tibble} of clean data.
@@ -14,8 +15,8 @@
 #' \dontrun{
 #' import_metric_data(.path)
 #' }
-import_metric_data <- function(.path, ...) {
-  out <- pcmh::.read_metric_data(.path, ...)
+import_metric_data <- function(.path, .regexp = ".", ...) {
+  out <- pcmh::.read_metric_data(.path, .regexp, ...)
   out <- pcmh::.clean_metric_data(out)
   return(tibble::as_tibble(out))
 }

@@ -4,10 +4,12 @@
 \alias{import_metric_data}
 \title{Import metric_data}
 \usage{
-import_metric_data(.path, ...)
+import_metric_data(.path, .regexp = ".", ...)
 }
 \arguments{
 \item{.path}{A \code{filepath} to the \code{.csv} metric data.}
+
+\item{.regexp}{A \code{regular expression} to be passed to \code{\link[pcmh]{.read_metric_data}}}
 
 \item{...}{Extra parameters to be passed to \code{\link[pcmh]{.read_metric_data}}.}
 }
