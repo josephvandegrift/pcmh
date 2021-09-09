@@ -58,6 +58,22 @@ generate_detail <-
     }
 
 
+    # Handle special cases
+    if (params$variable == "awc_pctl_group" &
+        detail["text"] == "A") {
+      params["variable"] <-
+        "awc_text"
+    } else if (params$variable == "edu_pctl_group" &
+               detail["text"] == "A") {
+      params["variable"] <-
+        "edu_text"
+    } else if (params$variable == "ahu_pctl_group" &
+               detail["text"] == "A") {
+      params["variable"] <-
+        "ahu_text"
+    }
+
+
 
     # Extract expected value from clean_data
     if (params$variable %in% names(.clean_data) == TRUE) {
