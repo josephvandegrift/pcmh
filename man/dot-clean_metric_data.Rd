@@ -2,7 +2,7 @@
 % Please edit documentation in R/clean_metric_data.R
 \name{.clean_metric_data}
 \alias{.clean_metric_data}
-\title{Clean metric_data}
+\title{Clean Metric Data}
 \usage{
 .clean_metric_data(.data_frame)
 }
@@ -10,12 +10,11 @@
 \item{.data_frame}{A \code{dataframe} read in by \code{\link[pcmh]{.read_metric_data}}.}
 }
 \value{
-Returns a \code{.data_frame} as a \code{tibble} with clean variable
-names.
+Returns a clean version of \code{.data_frame}.
 }
 \description{
 This function takes the metric data read in by \code{\link[pcmh]{.read_metric_data}}
-and uses \code{\link[janitor]{clean_names}} to clean the variable names.
+and formats the data to be passed to \code{\link[pcmh]{generate_detail}}.
 }
 \examples{
 \dontrun{
