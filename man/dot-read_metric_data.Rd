@@ -4,12 +4,15 @@
 \alias{.read_metric_data}
 \title{Read Metric Data}
 \usage{
-.read_metric_data(.path, ...)
+.read_metric_data(.path, .regexp = ".", ...)
 }
 \arguments{
 \item{.path}{Filepath to the directory of metric data.}
 
-\item{...}{Extra parameters to be passed to \code{\link[fs]{dir_ls}}.}
+\item{.regexp}{A \code{regular expression} to be passed to \code{\link[fs]{dir_ls}}.}
+
+\item{...}{Extra parameters to be passed to \code{\link[vroom]{vroom}} or
+\code{\link[openxlsx]{read.xlsx}} depending on file extension.}
 }
 \value{
 Returns a \code{tibble} of the \code{.csv} oracle data

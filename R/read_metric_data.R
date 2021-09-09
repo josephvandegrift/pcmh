@@ -4,7 +4,9 @@
 #'   oracle data to be checked against the \code{.pdf} PCMH report data.
 #'
 #' @param .path Filepath to the directory of metric data.
-#' @param ... Extra parameters to be passed to \code{\link[fs]{dir_ls}}.
+#' @param .regexp A \code{regular expression} to be passed to \code{\link[fs]{dir_ls}}.
+#' @param ... Extra parameters to be passed to \code{\link[vroom]{vroom}} or
+#'   \code{\link[openxlsx]{read.xlsx}} depending on file extension.
 #'
 #' @return Returns a \code{tibble} of the \code{.csv} oracle data
 #' @export
@@ -18,9 +20,9 @@
 #' \dontrun{
 #' .read_metric_data(.path)
 #' }
-.read_metric_data <- function(.path, ...) {
+.read_metric_data <- function(.path, .regexp = ".", ...) {
   # Get filepath from directory
-  filepath <- fs::dir_ls(.path, ...)
+  filepath <- fs::dir_ls(.path, regexp = .regexp)
 
   # Check that length of file = 1
   if(length(filepath) == 0) {
@@ -35,10 +37,10 @@
   # Read in data based on file extension
   if(ext == "csv") {
     out <-
-      vroom::vroom(filepath)
+      vroom::vroom(filepath, ...)
   } else if(ext == "xlsx") {
     out <-
-      openxlsx::read.xlsx(filepath)
+      openxlsx::read.xlsx(filepath, ...)
   } else {
     return("File extension not supported")
   }
