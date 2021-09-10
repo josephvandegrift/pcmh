@@ -14,6 +14,7 @@
 #' @export
 #'
 #' @importFrom furrr future_map
+#' @importFrom furrr future_map2
 #'
 #' @examples
 #' \dontrun{
@@ -31,7 +32,7 @@ import_pdf_data <- function(.directory, ...) {
     regmatches(names(.reports), regexpr("\\d{9}", names(.reports)))
   # Map provider numbers to respective report
   out <-
-    map2(.prvdr_num,
+    furrr::future_map2(.prvdr_num,
          .reports,
          ~ {
            prvdr_num <- .x
