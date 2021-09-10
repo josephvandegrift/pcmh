@@ -20,7 +20,24 @@
 #' import_pdf_data(~Documents)
 #' }
 import_pdf_data <- function(.directory, ...) {
-  out <- pcmh::read_pdf_data(.directory, ...)
-  out <- furrr::future_map(out, pcmh::clean_pdf_data)
+  # Read in reports
+  .reports <-
+    pcmh::read_pdf_data(.directory, ...)
+  # Clean report data
+  .reports <-
+    furrr::future_map(.reports, pcmh::clean_pdf_data)
+  # Extract provider numbers from filenames
+  .prvdr_num <-
+    regmatches(names(.reports), regexpr("\\d{9}", names(.reports)))
+  # Map provider numbers to respective report
+  out <-
+    map2(.prvdr_num,
+         .reports,
+         ~ {
+           prvdr_num <- .x
+           df <- .y
+           df["prvdr_num"] <- prvdr_num
+           return(df)
+         })
   return(out)
 }
