@@ -45,8 +45,21 @@ generate_detail <-
                    .data_frame$y > params$y_min &
                    .data_frame$y < params$y_max, "text"]
 
-    # Handle cases when nrow(metric) != 1
-    if (nrow(metric) == 0) {
+
+    # Handle special cases and cases when nrow(metric) != 1
+    if (params$variable %in% c("qual_pass_cnt",
+                               "qual_pass_ss_count") &
+        params$y > 500 &
+        nrow(metric) == 2) {
+      detail["text"] <-
+        metric[1, "text"]
+    } else if (params$variable %in% c("qual_elig_cnt - qual_pass_cnt",
+                                      "qual_fail_ss_count") &
+               params$y > 500 &
+               nrow(metric) == 2) {
+      detail["text"] <-
+        metric[2, "text"]
+    } else if (nrow(metric) == 0) {
       detail["text"] <-
         "Missing"
     } else if (nrow(metric) > 1) {
@@ -58,7 +71,7 @@ generate_detail <-
     }
 
 
-    # Handle special cases
+    # Handle special cases for pctl_groups
     if (params$variable == "awc_pctl_group" &
         detail["text"] == "A") {
       params["variable"] <-
@@ -74,25 +87,42 @@ generate_detail <-
     }
 
 
-
     # Extract expected value from clean_data
     if (params$variable %in% names(.clean_data) == TRUE) {
       detail["expected_value"] <-
         as.character(.clean_data[which(.clean_data$reportid %in% .data_frame$prvdr_num),
-                                params$variable])
-    # Special case of a calculated value
+                                 params$variable])
+      # Special case of a calculated value
     } else if (params$variable %in% c("qual_elig_cnt - qual_pass_cnt")) {
       detail["expected_value"] <-
         (as.numeric(.clean_data[which(.clean_data$reportid %in% .data_frame$prvdr_num),
-                                 "qual_elig_cnt"]) -
-        as.numeric(.clean_data[which(.clean_data$reportid %in% .data_frame$prvdr_num),
-                               "qual_pass_cnt"])) |>
+                                "qual_elig_cnt"]) -
+           as.numeric(.clean_data[which(.clean_data$reportid %in% .data_frame$prvdr_num),
+                                  "qual_pass_cnt"])) |>
         as.character()
 
     } else {
       detail["expected_value"] <-
         "Variable not in data"
     }
+
+
+
+    # Handle special cases when qual_elig/pass_cnt == 0
+    if (params$variable %in% c("qual_pass_cnt",
+                               "qual_pass_ss_count") &
+        params$y > 500 &
+        detail["expected_value"] == 0) {
+      detail["text"] <-
+        "0"
+    } else if (params$variable %in% c("qual_elig_cnt - qual_pass_cnt",
+                                      "qual_fail_ss_count") &
+               params$y > 500 &
+               detail["expected_value"] == 0) {
+      detail["text"] <-
+        "0"
+    }
+
 
     # Check for mismatch/missing
     if (detail["expected_value"] == "Variable not in data") {
