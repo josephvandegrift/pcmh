@@ -80,6 +80,15 @@ generate_detail <-
       detail["expected_value"] <-
         as.character(.clean_data[which(.clean_data$reportid %in% .data_frame$prvdr_num),
                                 params$variable])
+    # Special case of a calculated value
+    } else if (params$variable %in% c("qual_elig_cnt - qual_pass_cnt")) {
+      detail["expected_value"] <-
+        (as.numeric(.clean_data[which(.clean_data$reportid %in% .data_frame$prvdr_num),
+                                 "qual_elig_cnt"]) -
+        as.numeric(.clean_data[which(.clean_data$reportid %in% .data_frame$prvdr_num),
+                               "qual_pass_cnt"])) |>
+        as.character()
+
     } else {
       detail["expected_value"] <-
         "Variable not in data"
