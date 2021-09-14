@@ -138,12 +138,31 @@ dplyr::glimpse(detail)
 ## Saving Ouptput
 
 From here, you can filter summary and detail to only missing/mismatches (if they
-  exist), add human readable column names, and save the output by running the 
+  exist), add human-readable column names, and save the output by running the 
   following code:
   
 ```{r}
 
 out <-
-  list()
+  list(Summary = 
+         summary[which(summary$mismatch_typ != "Match"), ],
+       Detail = 
+         detail[which(detail["mismatch_type"] %in% c("Missing", "Mismatch")), ])
+
+names(out[[1]]) <-
+  c("Provider Number",
+    "Mismatch Type")
+
+names(out[[2]]) <-
+  c("Provider Number",
+    "Report Section",
+    "Metric Description",
+    "Variable",
+    "Page Number",
+    "Report Value",
+    "Data Value",
+    "Mismatch Type")
+
+out
 ```
 
