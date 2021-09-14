@@ -18,9 +18,120 @@ knitr::opts_chunk$set(
 library(pcmh)
 ```
 
-We start by reading in the \code{.pdf} PCMH reports.
+This document outlines the process for QA'ing one of the three PCMH report types:
+  (2020 PCMH, 2020 Shared Savings, 2021 PCMH). The process is the same for each 
+  report but the internal data you reference will depend on which report type you
+  are QA'ing.
+  
+## Internal Data
+
+You will have to reference one of pcmh20_crosswalk, pool20_crosswalk, or
+  pcmh21_crosswalk when QA'ing 2020 PCMH, 2020 Shared Savings, or 2021 PCMH
+  when QA'ing each report type, respectively.
+
+Each of the internal data sets will look like:
 
 ```{r}
+dplyr::glimpse(pcmh:::pcmh20_crosswalk)
+```
 
+and we will use them to compare the data we extract from the PCMH reports to the
+  data gathered by Riley's team.
+
+Each of the data sets have extra variables that currently aren't used in QA as
+  of 9/14/2021. So you first must subset the specific data set to remove these
+  before QA begins. For this example, we are assuming report type is 2021 PCMH.
+  
+```{r}
+crosswalk <-
+  pcmh:::pcmh21_crosswalk[which(!is.na(pcmh:::pcmh21_crosswalk$variable) &
+                              !is.na(pcmh:::pcmh21_crosswalk$x) &
+                              !is.na(pcmh:::pcmh21_crosswalk$x_min) &
+                              !is.na(pcmh:::pcmh21_crosswalk$x_max) &
+                              !is.na(pcmh:::pcmh21_crosswalk$y) &
+                              !is.na(pcmh:::pcmh21_crosswalk$y_min) &
+                              !is.na(pcmh:::pcmh21_crosswalk$y_max)), ]
+```
+
+## Read in data
+
+Next you must read in both the .pdf reports and the data from Riley's team to 
+  compare.
+  
+### Metric Data
+
+First, you call the import_metric_data function to read in and clean the data 
+  from Riley's team. You will need to pass it the filepath to the directory the
+  data is in, a regular expression to select the specific data for the quarter, 
+  and col_types = c(.default = "c") to specify each column is read in as character
+  type.
+  
+```{r}
+metric_data <-
+  pcmh::import_metric_data(
+    "U:/AHCPII/Episodes of Care/Qrtly Reports/SAS team QA/Individual folders/Joseph/projects/pcmh_qa/data",
+    .regexp = "report_pcmh_2021q3_21",
+    col_types = c(.default = "c")
+  )
+```
+
+The metric data will differ depending on report type but will be simmilar to:
+
+```{r}
+head(metric_data)
+```
+
+### PCMH reports
+
+Next, you will need to read in the .pdf reports. To do this more quickly, we will
+  use the furrr package.
+  
+
+```{r}
+future::plan(future::multisession)
+
+reports <- 
+  pcmh::import_pdf_data("U:/AR_reports/PCMH/Q32021_PCMH_2021_09072021_FINAL/Original",
+                        regexp = ".pdf")
+```
+
+
+## Generating Output
+
+Once the reports and metric data have been read in, we can use pcmh::generate_detail
+  and pcmh::generate_summary functions to create the output.
+
+### Detail
+
+Again we can use the furrr package to help sped up the process.
+
+```{r}
+detail <-
+  furrr::future_map_dfr(reports,
+          ~ {
+            report <- .x
+            furrr::future_map_dfr(
+              1:nrow(crosswalk),
+              ~ pcmh::generate_detail(report,
+                                      metric_data,
+                                      crosswalk[.,])
+            )
+          })
+```
+
+### Summary 
+
+```{r}
+summary <- 
+  furrr::future_map_dfr(detail$prvdr_num |>
+            unique(),
+          ~ pcmh::generate_summary(detail, .))
+```
+
+At this point the Summary and Detail pages should look similar to
+
+```{r}
+head(summary)
+head(detail)
 ```
 
