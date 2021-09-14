@@ -20,7 +20,8 @@ generate_summary <- function(.detail, .prvdr_num) {
 
   # Initialize output
   out <-
-    detail[1, "prvdr_num"]
+    detail["prvdr_num"] |>
+    unique()
 
   # Number of Matches
   match_no <-
