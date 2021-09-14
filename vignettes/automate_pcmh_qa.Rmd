@@ -131,7 +131,19 @@ summary <-
 At this point the Summary and Detail pages should look similar to
 
 ```{r}
-head(summary)
-head(detail)
+dplyr::glimpse(summary)
+dplyr::glimpse(detail)
+```
+
+## Saving Ouptput
+
+From here, you can filter summary and detail to only missing/mismatches (if they
+  exist), add human readable column names, and save the output by running the 
+  following code:
+  
+```{r}
+
+out <-
+  list()
 ```
 

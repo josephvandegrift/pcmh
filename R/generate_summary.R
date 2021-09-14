@@ -17,35 +17,47 @@ generate_summary <- function(.detail, .prvdr_num) {
   detail <-
     .detail[which(.detail$prvdr_num == .prvdr_num), ]
 
+
   # Initialize output
   out <-
     detail[1, "prvdr_num"]
 
+  # Number of Matches
+  match_no <-
+    detail[which(detail$mismatch_type == "Match"), ] |>
+    nrow()
+
+  # Number of Mismatches
+  mismatch_no <-
+    detail[which(detail$mismatch_type == "Mismatch"), ] |>
+    nrow()
+
+  # Number of Missing
+  missing_no <-
+    detail[which(detail$mismatch_type == "Missing"), ] |>
+    nrow()
+
   # Summarize Mismatch Type for each Provider
-  if("Missing" %in% .detail[which(.detail$prvdr_num == .prvdr_num),
-                            "mismatch_type"] &
-     "Mismatch" %in% .detail[which(.detail$prvdr_num == .prvdr_num),
-                             "mismatch_type"]) {
-    out["type"] <-
+  if (match_no == nrow(detail)) {
+    out["mismatch_type"] <-
+      "Match"
+  } else if (mismatch_no > 0 &
+             missing_no > 0) {
+    out["mismatch_type"] <-
       "Missing/Mismatch"
-  } else if ("Missing" %in% .detail[which(.detail$prvdr_num == .prvdr_num),
-                                    "mismatch_type"]) {
-    out["type"] <-
+  } else if (mismatch_no == 0 &
+             missing_no > 0) {
+    out["mismatch_type"] <-
       "Missing"
-  } else if ("Mismatch" %in% .detail[which(.detail$prvdr_num == .prvdr_num),
-                                     "mismatch_type"]) {
-    out["type"] <-
+  } else if (mismatch_no > 0 &
+             missing_no == 0) {
+    out["mismatch_type"] <-
       "Mismatch"
   } else {
-    out["type"] <-
-      # .detail["mismatch_type"]
-      "Something unexpected"
+    out["mismatch_type"] <-
+      "Other"
   }
 
-  # Give columns human readable names
-  names(out) <-
-    c("Provider Number",
-      "Mismatch Type")
 
   # Return output
   return(out)
