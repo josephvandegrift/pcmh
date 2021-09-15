@@ -55,9 +55,9 @@ pcmh_qa <- function(.pcmh_report_dir,
   # Initialize crosswalks
   crosswalk <-
     list(
-      pcmh20 = pcmh:::pcmh20_crosswalk,
-      pool20 = pcmh:::pool20_crosswalk,
-      pcmh21 = pcmh:::pcmh21_crosswalk
+      pcmh20 = pcmh20_crosswalk,
+      pool20 = pool20_crosswalk,
+      pcmh21 = pcmh21_crosswalk
     )
 
   # Select crosswalk based on .report_type
