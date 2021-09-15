@@ -92,7 +92,7 @@ Next, you will need to read in the .pdf reports. To do this more quickly, we wil
 future::plan(future::multisession)
 
 reports <- 
-  pcmh::import_pdf_data("U:/AR_reports/PCMH/Q32021_PCMH_2021_09072021_FINAL",
+  pcmh::import_pdf_data("U:/AR_reports/PCMH/Q32021_PCMH_2021_09072021_FINAL/Original",
                         regexp = ".pdf")
 stop("Everything works up to here")
 ```
@@ -149,9 +149,11 @@ From here, you can filter summary and detail to only missing/mismatches (if they
 
 out <-
   list(Summary = 
-         summary[which(summary$mismatch_typ != "Match"), ],
+         summary[which(summary$mismatch_type != "Match"), ],
        Detail = 
-         detail[which(detail["mismatch_type"] %in% c("Missing", "Mismatch")), ])
+         detail[which(detail$mismatch_type %in% c("Mismatch", "Missing")), ])
+
+
 
 names(out[[1]]) <-
   c("Provider Number",

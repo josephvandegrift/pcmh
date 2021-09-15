@@ -109,9 +109,9 @@ pcmh_qa <- function(.pcmh_report_dir,
   # Filter summary/detail to only missing/mismatches
   out <-
     list(Summary =
-           summary[which(summary$mismatch_typ != "Match"), ],
+           summary[which(summary$mismatch_type != "Match"), ],
          Detail =
-           detail[which(detail["mismatch_type"] %in% c("Missing", "Mismatch")), ])
+           detail[which(detail$mismatch_type %in% c("Missing", "Mismatch")), ])
 
   # Rename output column names
   names(out[[1]]) <-
