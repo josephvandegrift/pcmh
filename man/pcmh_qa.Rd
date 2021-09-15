@@ -4,29 +4,42 @@
 \alias{pcmh_qa}
 \title{PCMH QA}
 \usage{
-pcmh_qa(.path_pdf, .path_metric, .path_out, .report_type = "PCMH")
+pcmh_qa(
+  .pcmh_report_dir,
+  .metric_data_dir,
+  .metric_data_regexp,
+  .report_type,
+  .out_path = NA
+)
 }
 \arguments{
-\item{.path_pdf}{Path to the \code{directory} containing the \code{.pdf} PCMH
-reports to be passed to \code{\link[pcmh]{import_pdf_data}}.}
+\item{.pcmh_report_dir}{A \code{filepath} to the directory of PCMH
+\code{.pdf} reports.}
 
-\item{.path_metric}{Path to the \code{.csv} metric data to be passed to
-\code{\link[pcmh]{import_metric_data}}.}
+\item{.metric_data_dir}{A \code{filepath} to the directory for metric data.}
 
-\item{.path_out}{Path to the location the output will be saved.}
+\item{.metric_data_regexp}{A \code{regexp} for which metric data file to be
+read in.}
 
-\item{.report_type}{A \code{character} string of \code{"PCMH"} or \code{"Shared"}.}
+\item{.report_type}{One of \code{"pcmh20"}, \code{"pool20"}, or
+\code{"pcmh21"}.}
+
+\item{.out_path}{A \code{filepath} to the location output will be saved.
+Only supports \code{.xlsx} files and only writes if an input is supplied.
+Defaults to \code{NA}.}
 }
 \value{
-Retrurns the character string "You completed PCMH QA!"
+Retrurns a \code{list} of 2 \code{dataframes}.
 }
 \description{
-This function is a wrapper around \code{\link[pcmh]{import_pdf_data}} and
-\code{\link[pcmh]{import_metric_data}}.
-You call this function to generate output for the PCMH report QA.
+This function is meant to complete an entire PCMH QA run in a single function.
 }
 \examples{
 \dontrun{
-pcmh_qa(.path_pdf, .path_metric, .path_out)
+pcmh_qa(.pcmh_report_dir,
+  .metric_data_dir,
+  .metric_data_regexp,
+  .report_type,
+  .out_path = NA)
 }
 }

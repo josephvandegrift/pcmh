@@ -1,27 +1,143 @@
 #' PCMH QA
 #'
-#' This function is a wrapper around \code{\link[pcmh]{import_pdf_data}} and
-#'   \code{\link[pcmh]{import_metric_data}}.
-#'   You call this function to generate output for the PCMH report QA.
+#' This function is meant to complete an entire PCMH QA run in a single function.
 #'
-#' @param .path_pdf Path to the \code{directory} containing the \code{.pdf} PCMH
-#'   reports to be passed to \code{\link[pcmh]{import_pdf_data}}.
-#' @param .path_metric Path to the \code{.csv} metric data to be passed to
-#'   \code{\link[pcmh]{import_metric_data}}.
-#' @param .path_out Path to the location the output will be saved.
-#' @param .report_type A \code{character} string of \code{"PCMH"} or \code{"Shared"}.
+#' @param .pcmh_report_dir A \code{filepath} to the directory of PCMH
+#'   \code{.pdf} reports.
+#' @param .metric_data_dir A \code{filepath} to the directory for metric data.
+#' @param .metric_data_regexp A \code{regexp} for which metric data file to be
+#'   read in.
+#' @param .report_type One of \code{"pcmh20"}, \code{"pool20"}, or
+#'   \code{"pcmh21"}.
+#' @param .out_path A \code{filepath} to the location output will be saved.
+#'   Only supports \code{.xlsx} files and only writes if an input is supplied.
+#'   Defaults to \code{NA}.
 #'
-#' @return Retrurns the character string "You completed PCMH QA!"
+#' @return Retrurns a \code{list} of 2 \code{dataframes}.
 #' @export
 #'
 #' @importFrom openxlsx write.xlsx
+#' @importFrom future plan
+#' @importFrom future multisession
+#' @importFrom furrr future_map_dfr
 #'
 #' @examples
 #' \dontrun{
-#' pcmh_qa(.path_pdf, .path_metric, .path_out)
+#' pcmh_qa(.pcmh_report_dir,
+#'   .metric_data_dir,
+#'   .metric_data_regexp,
+#'   .report_type,
+#'   .out_path = NA)
 #' }
-pcmh_qa <- function(.path_pdf, .path_metric, .path_out, .report_type = "PCMH") {
-  pcmh_out <- pcmh::qa_report(.path_pdf, .path_metric, .report_type)
-  openxlsx::write.xlsx(pcmh_out, file = .path_out)
-  return(paste0("You completed PCMH Qa!"))
+pcmh_qa <- function(.pcmh_report_dir,
+                    .metric_data_dir,
+                    .metric_data_regexp,
+                    .report_type,
+                    .out_path = NA) {
+  # If .out_path supplied, get file extension
+  if (!is.na(.out_path)) {
+    out_ext <-
+      pcmh::get_ext(.out_path)
+  }
+
+  # Check that out_ext is .xlsx
+  if (out_ext != "xlsx") {
+    stop(".out_path only supports .xlsx documents")
+  }
+
+  # Check that .report_type is supported
+  if (.report_type != "pcmh20" &
+      .report_type != "pcmh21" &
+      .report_type != "pool20") {
+    stop(".report_type must be one of 'pcmh20', 'pcmh21', or 'pool20'")
+  }
+
+  # Initialize crosswalks
+  crosswalk <-
+    list(
+      pcmh20 = pcmh:::pcmh20_crosswalk,
+      pool20 = pcmh:::pool20_crosswalk,
+      pcmh21 = pcmh:::pcmh21_crosswalk
+    )
+
+  # Select crosswalk based on .report_type
+  crosswalk <-
+    crosswalk[[eval(.report_type)]]
+
+  # Remove metrics that don't have a variable/coordinates
+  crosswalk <-
+    crosswalk[which(
+      !is.na(crosswalk$variable) &
+        !is.na(crosswalk$x) &
+        !is.na(crosswalk$x_min) &
+        !is.na(crosswalk$x_max) &
+        !is.na(crosswalk$y) &
+        !is.na(crosswalk$y_min) &
+        !is.na(crosswalk$y_max)
+    ),]
+
+  # Read in/clean metric data
+  metric_data <-
+    pcmh::import_metric_data(.metric_data_dir,
+                             .metric_data_regexp,
+                             col_types = c(.default = "c"))
+
+  # Read in PCMH reports
+  future::plan(future::multisession)
+
+  reports <-
+    pcmh::import_pdf_data(.pcmh_report_dir,
+                          regexp = ".pdf$")
+
+  # Generate Detail
+  detail <-
+    furrr::future_map_dfr(reports,
+                          ~ {
+                            report <- .x
+                            furrr::future_map_dfr(1:nrow(crosswalk),
+                                                  ~ pcmh::generate_detail(report,
+                                                                          metric_data,
+                                                                          crosswalk[., ]))
+                          })
+
+  # Generate Summary
+  summary <-
+    furrr::future_map_dfr(detail$prvdr_num |>
+                            unique(),
+                          ~ pcmh::generate_summary(detail, .))
+
+  # Filter summary/detail to only missing/mismatches
+  out <-
+    list(Summary =
+           summary[which(summary$mismatch_typ != "Match"), ],
+         Detail =
+           detail[which(detail["mismatch_type"] %in% c("Missing", "Mismatch")), ])
+
+  # Rename output column names
+  names(out[[1]]) <-
+    c("Provider Number",
+      "Mismatch Type")
+
+  names(out[[2]]) <-
+    c(
+      "Provider Number",
+      "Report Section",
+      "Metric Description",
+      "Variable",
+      "Page Number",
+      "Report Value",
+      "Data Value",
+      "Mismatch Type"
+    )
+
+
+  # Save output to file if applicable
+  openxlsx::write.xlsx(out,
+                       .out_path)
+
+
+
+
+  # Return output
+  return(out)
 }
