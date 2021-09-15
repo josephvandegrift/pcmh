@@ -73,6 +73,7 @@ metric_data <-
     .regexp = "report_pcmh_2021q3_21",
     col_types = c(.default = "c")
   )
+
 ```
 
 The metric data will differ depending on report type but will be simmilar to:
@@ -87,12 +88,13 @@ Next, you will need to read in the .pdf reports. To do this more quickly, we wil
   use the furrr package.
   
 
-```{r}
+```{r eval=FALSE}
 future::plan(future::multisession)
 
 reports <- 
-  pcmh::import_pdf_data("U:/AR_reports/PCMH/Q32021_PCMH_2021_09072021_FINAL/Original",
+  pcmh::import_pdf_data("U:/AR_reports/PCMH/Q32021_PCMH_2021_09072021_FINAL",
                         regexp = ".pdf")
+stop("Everything works up to here")
 ```
 
 
@@ -105,7 +107,7 @@ Once the reports and metric data have been read in, we can use pcmh::generate_de
 
 Again we can use the furrr package to help sped up the process.
 
-```{r}
+```{r eval=FALSE}
 detail <-
   furrr::future_map_dfr(reports,
           ~ {
@@ -117,11 +119,12 @@ detail <-
                                       crosswalk[.,])
             )
           })
+
 ```
 
 ### Summary 
 
-```{r}
+```{r eval=FALSE}
 summary <- 
   furrr::future_map_dfr(detail$prvdr_num |>
             unique(),
@@ -130,9 +133,10 @@ summary <-
 
 At this point the Summary and Detail pages should look similar to
 
-```{r}
+```{r eval=FALSE}
 dplyr::glimpse(summary)
 dplyr::glimpse(detail)
+
 ```
 
 ## Saving Ouptput
@@ -141,7 +145,7 @@ From here, you can filter summary and detail to only missing/mismatches (if they
   exist), add human-readable column names, and save the output by running the 
   following code:
   
-```{r}
+```{r eval=FALSE}
 
 out <-
   list(Summary = 
