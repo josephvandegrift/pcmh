@@ -50,11 +50,9 @@ pcmh_qa <- function(.pcmh_report_dir,
 
   # Initialize crosswalks
   crosswalk <-
-    list(
-      pcmh20 = pcmh20_crosswalk,
-      pool20 = pool20_crosswalk,
-      pcmh21 = pcmh21_crosswalk
-    )
+    list(pcmh20 = pcmh20_crosswalk,
+         pool20 = pool20_crosswalk,
+         pcmh21 = pcmh21_crosswalk)
 
   # Select crosswalk based on .report_type
   crosswalk <-
@@ -70,7 +68,7 @@ pcmh_qa <- function(.pcmh_report_dir,
         !is.na(crosswalk$y) &
         !is.na(crosswalk$y_min) &
         !is.na(crosswalk$y_max)
-    ),]
+    ), ]
 
   # Read in/clean metric data
   metric_data <-
@@ -93,7 +91,7 @@ pcmh_qa <- function(.pcmh_report_dir,
                             furrr::future_map_dfr(1:nrow(crosswalk),
                                                   ~ pcmh::generate_detail(report,
                                                                           metric_data,
-                                                                          crosswalk[., ]))
+                                                                          crosswalk[.,]))
                           })
 
   # Generate Summary
@@ -105,9 +103,9 @@ pcmh_qa <- function(.pcmh_report_dir,
   # Filter summary/detail to only missing/mismatches
   out <-
     list(Summary =
-           summary[which(summary$mismatch_type != "Match"), ],
+           summary[which(summary$mismatch_type != "Match"),],
          Detail =
-           detail[which(detail$mismatch_type %in% c("Missing", "Mismatch")), ])
+           detail[which(detail$mismatch_type %in% c("Missing", "Mismatch")),])
 
   # Rename output column names
   names(out[[1]]) <-
@@ -128,11 +126,12 @@ pcmh_qa <- function(.pcmh_report_dir,
 
 
   # Save output to file if applicable
-  openxlsx::write.xlsx(out,
-                       .out_path)
+  if (!is.na(.out_path) &
+      pcmh::get_ext(.out_path) == "xlsx") {
+    openxlsx::write.xlsx(out,
+                         .out_path)
 
-
-
+  }
 
   # Return output
   return(out)
