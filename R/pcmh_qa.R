@@ -36,13 +36,9 @@ pcmh_qa <- function(.pcmh_report_dir,
                     .out_path = NA) {
   # If .out_path supplied, get file extension
   if (!is.na(.out_path)) {
-    out_ext <-
-      pcmh::get_ext(.out_path)
-  }
-
-  # Check that out_ext is .xlsx
-  if (out_ext != "xlsx") {
-    stop(".out_path only supports .xlsx documents")
+    if (pcmh::get_ext(.out_path) != "xlsx") {
+      stop(".out_path only supports .xlsx documents")
+    }
   }
 
   # Check that .report_type is supported
