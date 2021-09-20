@@ -25,6 +25,5 @@ clean_pdf_data = function(.list) {
   page_numbers <- 1:length(.list)
   out <- furrr::future_map2(.list, page_numbers, pcmh::.add_page_numbers)
   out <- furrr::future_map_dfr(out, pcmh::.add_index)
-  out <- pcmh::.add_prvdr_num(out)
   return(tibble::as_tibble(out))
 }
