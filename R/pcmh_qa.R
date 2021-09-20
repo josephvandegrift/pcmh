@@ -126,8 +126,7 @@ pcmh_qa <- function(.pcmh_report_dir,
 
 
   # Save output to file if applicable
-  if (!is.na(.out_path) &
-      pcmh::get_ext(.out_path) == "xlsx") {
+  if (!is.na(.out_path)) {
     openxlsx::write.xlsx(out,
                          .out_path)
 
