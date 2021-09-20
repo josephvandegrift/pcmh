@@ -33,12 +33,20 @@ import_pdf_data <- function(.directory, ...) {
   # Map provider numbers to respective report
   out <-
     furrr::future_map2(.prvdr_num,
-         .reports,
-         ~ {
-           prvdr_num <- .x
-           df <- .y
-           df["prvdr_num"] <- prvdr_num
-           return(df)
-         })
+                       .reports,
+                       ~ {
+                         prvdr_num <- .x
+                         df <- .y
+                         df["prvdr_num"] <- prvdr_num
+                         return(df)
+                       })
+
+  # Put the prvdr_num column at the first position
+  out <-
+    furrr::future_map(out,
+                      ~ {
+                        report <- .x
+                        .x[, c(ncol(.x), 1:(ncol(.x) - 1))]
+                      })
   return(out)
 }
