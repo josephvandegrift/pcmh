@@ -15,6 +15,7 @@
 #'
 #' @importFrom furrr future_map
 #' @importFrom furrr future_map2
+#' @importFrom tibble tibble
 #'
 #' @examples
 #' \dontrun{
@@ -26,8 +27,8 @@ import_pdf_data <- function(.directory, ...) {
     pcmh::read_pdf_data(.directory, ...)
   # Remove paginations
   .reports <-
-    lapply(.reports,
-           pcmh::.remove_pagination, .n = 35)
+    furrr::future_map(.reports,
+           ~ pcmh::.remove_pagination(., .n = 35))
   # Clean report data
   .reports <-
     furrr::future_map(.reports, pcmh::clean_pdf_data)
@@ -38,7 +39,7 @@ import_pdf_data <- function(.directory, ...) {
   out <-
     furrr::future_map2(.prvdr_num,
                        .reports,
-                       ~ cbind(prvdr_num = .x,
+                       ~ tibble::tibble(prvdr_num = .x,
                                .y))
 
   return(out)
