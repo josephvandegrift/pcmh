@@ -7,7 +7,7 @@
 #' @param .metric_data_dir A \code{filepath} to the directory for metric data.
 #' @param .metric_data_regexp A \code{regexp} for which metric data file to be
 #'   read in.
-#' @param .report_type One of \code{"pcmh20"}, \code{"pool20"}, or
+#' @param .report_type One of \code{abx}, \code{"pcmh20"}, \code{"pool20"}, or
 #'   \code{"pcmh21"}.
 #' @param .out_path A \code{filepath} to the location output will be saved.
 #'   Only supports \code{.xlsx} files and only writes if an input is supplied.
@@ -44,15 +44,17 @@ pcmh_qa <- function(.pcmh_report_dir,
   # Check that .report_type is supported
   if (.report_type != "pcmh20" &
       .report_type != "pcmh21" &
-      .report_type != "pool20") {
-    stop(".report_type must be one of 'pcmh20', 'pcmh21', or 'pool20'")
+      .report_type != "pool20" &
+      .report_type != "abx") {
+    stop(".report_type must be one of 'abx', 'pcmh20', 'pcmh21', or 'pool20'")
   }
 
   # Initialize crosswalks
   crosswalk <-
     list(pcmh20 = pcmh20_crosswalk,
          pool20 = pool20_crosswalk,
-         pcmh21 = pcmh21_crosswalk)
+         pcmh21 = pcmh21_crosswalk,
+         abx = abx_crosswalk)
 
   # Select crosswalk based on .report_type
   crosswalk <-

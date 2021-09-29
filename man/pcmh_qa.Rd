@@ -21,7 +21,7 @@ pcmh_qa(
 \item{.metric_data_regexp}{A \code{regexp} for which metric data file to be
 read in.}
 
-\item{.report_type}{One of \code{"pcmh20"}, \code{"pool20"}, or
+\item{.report_type}{One of \code{abx}, \code{"pcmh20"}, \code{"pool20"}, or
 \code{"pcmh21"}.}
 
 \item{.out_path}{A \code{filepath} to the location output will be saved.
