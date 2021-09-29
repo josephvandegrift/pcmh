@@ -38,6 +38,11 @@ generate_summary <- function(.detail, .prvdr_num) {
     detail[which(detail$mismatch_type == "Missing"), ] |>
     nrow()
 
+  # Number of Paginations
+  pagination_no <-
+    detail[which(detail$mismatch_type == "Pagination"), ] |>
+    nrow()
+
   # Summarize Mismatch Type for each Provider
   if (match_no == nrow(detail)) {
     out["mismatch_type"] <-
@@ -54,7 +59,10 @@ generate_summary <- function(.detail, .prvdr_num) {
              missing_no == 0) {
     out["mismatch_type"] <-
       "Mismatch"
-  } else {
+  } else if (pagination_no > 0) {
+    out["mismatch_type"] <-
+      "Pagination"
+  }  else {
     out["mismatch_type"] <-
       "Other"
   }

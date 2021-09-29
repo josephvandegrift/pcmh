@@ -20,6 +20,13 @@
 #' @importFrom future plan
 #' @importFrom future multisession
 #' @importFrom furrr future_map_dfr
+#' @importFrom purrr reduce
+#' @importFrom dplyr group_by
+#' @importFrom dplyr ungroup
+#' @importFrom dplyr select
+#' @importFrom dplyr arrange
+#' @importFrom dplyr filter
+#' @importFrom tibble tibble
 #'
 #' @examples
 #' \dontrun{
@@ -51,10 +58,12 @@ pcmh_qa <- function(.pcmh_report_dir,
 
   # Initialize crosswalks
   crosswalk <-
-    list(pcmh20 = pcmh20_crosswalk,
-         pool20 = pool20_crosswalk,
-         pcmh21 = pcmh21_crosswalk,
-         abx = abx_crosswalk)
+    list(
+      pcmh20 = pcmh20_crosswalk,
+      pool20 = pool20_crosswalk,
+      pcmh21 = pcmh21_crosswalk,
+      abx = abx_crosswalk
+    )
 
   # Select crosswalk based on .report_type
   crosswalk <-
@@ -70,7 +79,7 @@ pcmh_qa <- function(.pcmh_report_dir,
         !is.na(crosswalk$y) &
         !is.na(crosswalk$y_min) &
         !is.na(crosswalk$y_max)
-    ), ]
+    ),]
 
   # Read in/clean metric data
   metric_data <-
@@ -79,11 +88,38 @@ pcmh_qa <- function(.pcmh_report_dir,
                              col_types = c(.default = "c"))
 
   # Read in PCMH reports
-  future::plan(future::multisession)
+  # future::plan(future::multisession)
 
   reports <-
     pcmh::import_pdf_data(.pcmh_report_dir,
                           regexp = ".pdf$")
+
+  # Extract reports with paginations
+  pagination <-
+    reports |>
+    purrr::reduce(rbind) |>
+    dplyr::group_by(reports$prvdr_num,
+                    reports$page) |>
+    dplyr::filter(max(reports$index) < 35) |>
+    dplyr::ungroup() |>
+    dplyr::select(reports$prvdr_num,
+                  reports$page) |>
+    unique() |>
+    tibble::tibble(page_name = "Pagination",
+                   metric = "Pagination",
+                   variable = "Pagination",
+                   text = "Pagination",
+                   expected_value = "Pagination",
+                   mismatch_type = "Pagination")
+
+  # Remove reports with paginations
+  if (nrow(pagination) > 0) {
+    reports <-
+      Filter(function(x) {
+        unique(x$prvdr_num) %in% pagination$prvdr_num == FALSE
+      }, reports)
+  }
+
 
   # Generate Detail
   detail <-
@@ -93,8 +129,16 @@ pcmh_qa <- function(.pcmh_report_dir,
                             furrr::future_map_dfr(1:nrow(crosswalk),
                                                   ~ pcmh::generate_detail(report,
                                                                           metric_data,
-                                                                          crosswalk[.,]))
+                                                                          crosswalk[., ]))
                           })
+
+  # Add pagination if they exist
+  if (nrow(pagination > 0)) {
+    detail <-
+      rbind(detail,
+            pagination)
+  }
+
 
   # Generate Summary
   summary <-
@@ -102,12 +146,19 @@ pcmh_qa <- function(.pcmh_report_dir,
                             unique(),
                           ~ pcmh::generate_summary(detail, .))
 
+
   # Filter summary/detail to only missing/mismatches
   out <-
-    list(Summary =
-           summary[which(summary$mismatch_type != "Match"),],
-         Detail =
-           detail[which(detail$mismatch_type %in% c("Missing", "Mismatch")),])
+    list(
+      Summary =
+        summary[which(summary$mismatch_type != "Match"), ] |>
+        dplyr::arrange(summary$prvdr_num),
+      Detail =
+        detail[which(detail$mismatch_type %in% c("Missing",
+                                                 "Mismatch",
+                                                 "Pagination")), ] |>
+        dplyr::arrange(detail$prvdr_num)
+    )
 
   # Rename output column names
   names(out[[1]]) <-

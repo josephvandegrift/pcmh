@@ -26,9 +26,9 @@ import_pdf_data <- function(.directory, ...) {
   .reports <-
     pcmh::read_pdf_data(.directory, ...)
   # Remove paginations
-  .reports <-
-    furrr::future_map(.reports,
-           ~ pcmh::.remove_pagination(., .n = 35))
+  # .reports <-
+  #   furrr::future_map(.reports,
+  #          ~ pcmh::.remove_pagination(., .n = 35))
   # Clean report data
   .reports <-
     furrr::future_map(.reports, pcmh::clean_pdf_data)
