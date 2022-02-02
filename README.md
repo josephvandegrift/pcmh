@@ -14,36 +14,26 @@ If this is your first time setting up the package:
  1. Pull repository to desired location.
  2. Open the pcmh.Rproj file.
  3. In RStudio at the top, click on Build > Install and Restart (Ctrl + Shift + B).
+ 
+The package is now installed and ready to use/update. This should theoretically work the same way when the R server is up and running.
 
-## Example
+## PCMH QA
 
-This is a basic example which shows you how to solve a common problem:
+Once the package is installed, you only need to call one function to complete the QA process:
 
-``` r
+```{r pcmh_qa}
+## Load package, if necessary.
 library(pcmh)
-## basic example code
+
+pcmh_qa(.pcmh_report_dir,
+   .metric_data_dir,
+   .metric_data_regexp,
+   .report_type,
+   .out_path = NA)
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`?
-You can include R chunks like so:
+You can refer to the function documentation for pcmh_qa on what each input is expecting.
 
-``` r
-summary(cars)
-#>      speed           dist       
-#>  Min.   : 4.0   Min.   :  2.00  
-#>  1st Qu.:12.0   1st Qu.: 26.00  
-#>  Median :15.0   Median : 36.00  
-#>  Mean   :15.4   Mean   : 42.98  
-#>  3rd Qu.:19.0   3rd Qu.: 56.00  
-#>  Max.   :25.0   Max.   :120.00
-```
+For troubleshooting, you may run each part of the pcmh_qa function individually to identify any problems.
 
-You’ll still need to render `README.Rmd` regularly, to keep `README.md`
-up-to-date.
-
-You can also embed plots, for example:
-
-<img src="man/figures/README-pressure-1.png" width="100%" />
-
-In that case, don’t forget to commit and push the resulting figure
-files, so they display on GitHub!
+##
