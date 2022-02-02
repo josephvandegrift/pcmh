@@ -1,21 +1,19 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# pcmh
+# PCMH
 
 <!-- badges: start -->
 <!-- badges: end -->
 
 The goal of pcmh is to automate the PCMH Report QA.
 
-## Installation
+## Initial Setup
 
-You can install the released version of pcmh from
-[CRAN](https://CRAN.R-project.org) with:
-
-``` r
-install.packages("pcmh")
-```
+If this is your first time setting up the package:
+ 1. Pull repository to desired location.
+ 2. Open the pcmh.Rproj file.
+ 3. In RStudio at the top, click on Build > Install and Restart (Ctrl + Shift + B).
 
 ## Example
 
