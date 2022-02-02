@@ -61,3 +61,45 @@ If you need to add a new function:
  6. Push the changes to Birbucket.
  
 There will be a couple warnings when you Test the package. These are known and expected. If you see any other warnings or errors, it is recommended to fix those and re-test the package before pushing to Bitbucket.
+
+## Reference Data
+
+There is a reference crosswalk for each type of PCMH report that is used to power the pcmh_qa function. These crosswalks are stored as internal data in the package.
+
+As of February 2022, there are four dataframes: 
+ *abx_crosswalk
+ *pcmh20_crosswalk
+ *pcmh21_crosswalk
+ *pool20_crosswalk
+
+To edit or add a new crosswalk:
+
+ 1. Open sysdata.rda file in the R subdirectory. This should load each of the four crosswalks into the environment.
+ 2. Edit an existing crosswalk or create a new one.
+ 3. Save all of the crosswalks as internal data.
+ 
+You can save internal data to an R package as follows:
+
+```{r internal_data}
+usethis::use_data(abx_crosswalk, 
+				  pcmh20_crosswalk,
+                  pcmh21_crosswalk,
+                  pool20_crosswalk,
+                  new_crosswalk,
+                  internal = TRUE,
+                  overwrite = TRUE)
+```
+
+This will save each of the crosswalks as internal data. This will also overwrite the existing internal data in the package so it is recommended to include each of the existing crosswalks when doing this as to not lose them.
+
+In the above example, "new_crosswalk" is the new crosswalk that was created. The function usethis::use_data() takes the name of dataframes as inputs.
+
+You can reference internal data by using a triple colon (pcmh:::pcmh20_crosswalk, for example).
+
+## References
+
+You can reference https://r-pkgs.org/ for any further assistance. 
+
+Reference Ch. 10 for function documentation, and Ch. 14 for saving internal data.
+
+Worst case scenario, you may reach out to me on LinkedIn: https://www.linkedin.com/in/joseph-van-de-grift-800875121/
