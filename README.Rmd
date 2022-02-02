@@ -26,17 +26,29 @@ If this is your first time setting up the package:
  1. Pull repository to desired location.
  2. Open the pcmh.Rproj file.
  3. In RStudio at the top, click on Build > Install and Restart (Ctrl + Shift + B).
+ 
+The package is now installed and ready to use/update. This should theoretically work the same way when the R server is up and running.
 
-## Example
+## PCMH QA
 
-This is a basic example which shows you how to solve a common problem:
+Once the package is installed, you only need to call one function to complete the QA process:
 
-```{r example}
+```{r pcmh_qa}
+## Load package, if necessary.
 library(pcmh)
-## basic example code
+
+pcmh_qa(.pcmh_report_dir,
+   .metric_data_dir,
+   .metric_data_regexp,
+   .report_type,
+   .out_path = NA)
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
+You can refer to the function documentation for pcmh_qa on what each input is expecting.
+
+For troubleshooting, you may run each part of the pcmh_qa function individually to identify any problems.
+
+##
 
 ```{r cars}
 summary(cars)
